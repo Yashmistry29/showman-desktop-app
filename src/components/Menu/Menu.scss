@@ -1,0 +1,12 @@
+.Menu{
+  .MuiPaper-root{
+      background-color: darkblue;
+    }
+}  
+
+.logo{
+  img{
+    object-fit: fill;
+  }
+  pointer-events: none;
+}

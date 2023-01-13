@@ -1,17 +1,47 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+// StylesProvider
+
+const ShowmanTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#265CFF',
+    },
+    text: {
+      secondary: '#6c757d'
+    }
+  },
+  typography: {
+    fontFamily: [
+      'Poppins',
+      'Roboto',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(',')
+  }
+})
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
+  /*<React.StrictMode>*/
+  <StyledEngineProvider injectFirst>
+    <ThemeProvider theme={ShowmanTheme}>
+      <App />
+    </ThemeProvider>
+  </StyledEngineProvider>
+  /*	</React.StrictMode>*/
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
