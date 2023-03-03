@@ -68,7 +68,7 @@ const Login = () => {
   return (
     <React.Fragment>
       <ToastContainer />
-      <div className="pt5 flex-column w-70 items-center center ">
+      <div className="pt5 flex-column w-70 items-center center">
         <div className="w-100 center tc mb3">
           <img src={mainlogo} alt="logo" className="w-100" />
         </div>
@@ -84,8 +84,8 @@ const Login = () => {
             onChange={handleChange}
             {...(errors.username && { error: true, helperText: errors.username })}
             // focused
-            InputProps={{ style: { fontSize: "90%", color: "#fff" } }}
-            InputLabelProps={{ style: { fontSize: "90%", color: "#fff" } }}
+            InputProps={{ style: { fontSize: "90%" } }}
+            InputLabelProps={{ style: { fontSize: "90%", color: "#000" } }}
             fullWidth
           />
           <CssTextField
@@ -99,14 +99,14 @@ const Login = () => {
             onChange={handleChange}
             {...(errors.password && { error: true, helperText: errors.password })}
             // focused
-            InputProps={{ style: { fontSize: "90%", color: "#fff" } }}
-            InputLabelProps={{ style: { fontSize: "90%", color: "#fff" } }}
+            InputProps={{ style: { fontSize: "90%" } }}
+            InputLabelProps={{ style: { fontSize: "90%", color: "#000" } }}
             fullWidth
           />
         </div>
         <div className="flex justify-center">
           <p
-            className="link pointer tc bg-dark-blue white dim dib w4 pa2 br2"
+            className="link pointer tc bg-dark-blue shadow-3 white dim dib w4 pa2 br2"
             onClick={handleSubmit}
           >Login</p>
         </div>

@@ -48,7 +48,7 @@
     "react-build": "react-scripts build",
     "react-eject": "react-scripts eject",
     "test": "concurrently -k \"cross-env BROWSER=none npm run react-start\" \"npm:electron\"",
-    "electron": "wait-on tcp:3000 && electron .",
+    "electron": "wait-on http://localhost:3000 && electron .",
     "electron-build": "electron-builder",
     "build": "npm run react-build && npm run electron-build"
   },

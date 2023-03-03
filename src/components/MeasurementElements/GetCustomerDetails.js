@@ -86,7 +86,7 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
         <legend className='ph2 pr2 b'>Find Customer</legend>
         <div className='pa2'>
           <div className='flex justify-start items-center'>
-            <pre className='white pr2'>Enter Name  </pre>
+            <pre className='black pr2'>Enter Name  </pre>
             <Autocomplete
               // disablePortal
               options={names}
@@ -97,7 +97,7 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
                 {...params}
                 variant='outlined'
                 name='name'
-                className='w-70'
+                className='w-80'
               />}
             />
             {/* <CssTextField
@@ -106,8 +106,8 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
               className='w-50'
             /> */}
           </div>
-          <div className='flex justify-start items-center'>
-            <pre className='white pr2'>Select Job    </pre>
+          <div className='flex justify-start items-center bold'>
+            <pre className='black pr2'>Select Job    </pre>
             <CssTextField
               select={jobSelect}
               disabled={!jobSelect}
@@ -126,10 +126,8 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
                 ))
               }
             </CssTextField>
-          </div>
-          <div className='flex justify-start pt2'>
             <p
-              className='button-border link pointer tc ma2 bg-white ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+              className='button-border b--black link pointer tc ma2 bg-green light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
               onClick={handleView}
             >View</p>
           </div>

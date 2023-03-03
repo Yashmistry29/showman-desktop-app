@@ -158,15 +158,18 @@ function Measurement() {
         <Grid container direction="row" alignItems="flex-start" justify="space-between" spacing={3}>
           <Grid item xs={12} md={6}>
             <CustomerDataDisplay data={customerData} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <GetCustomerDetails setId={setId} setSData={setSData} setPData={setPData} setUpdate={setUpdate} setCustomerData={setCustomerData} id={id} sQuantity={setSQuantity} pQuantity={setPQuantity} initial={resetData} />
             <FormGroup row>
-              <pre className='pr2 white mr2'>{`Job Id: ${jobId}`}</pre>
+              <pre className='pr2 black mr2'>{`Job Id: ${jobId}`}</pre>
               <FormControlLabel
                 control={
                   <Checkbox
                     sx={{
-                      color: grey[50],
+                      color: grey[900],
                       '&.Mui-checked': {
-                        color: grey[50],
+                        color: grey[900],
                       },
                     }}
                     checked={checkedData.pant}
@@ -175,15 +178,15 @@ function Measurement() {
                   />
                 }
                 label="Pant"
-                className='white'
+                className='black'
               />
               <FormControlLabel
                 control={
                   <Checkbox
                     sx={{
-                      color: grey[50],
+                      color: grey[900],
                       '&.Mui-checked': {
-                        color: grey[50],
+                        color: grey[900],
                       },
                     }}
                     name="shirt"
@@ -192,29 +195,27 @@ function Measurement() {
                   />
                 }
                 label="Shirt"
-                className='white'
+                className='black'
               />
             </FormGroup>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <GetCustomerDetails setId={setId} setSData={setSData} setPData={setPData} setUpdate={setUpdate} setCustomerData={setCustomerData} id={id} sQuantity={setSQuantity} pQuantity={setPQuantity} initial={resetData} />
           </Grid>
         </Grid>
       </div>
       <CustomerMeasurement checkedData={checkedData} sData={sData} pData={pData} setSData={setSData} setPData={setPData} shirtQuantity={sQuantity} pantQuantity={pQuantity} setSQuantity={setSQuantity} setPQuantity={setPQuantity} sErrors={sErrors} pErrors={pErrors} />
       <div className='flex w-90 justify-end center mt1 font'>
         <div className='flex justify-start items-center'>
-          <p className='white pr2'>Created At</p>
+          <p className='black pr2'>Created At</p>
           <CssTextField
             name='createdAt'
             className='w-60'
-            value={jobData.createdAt.toLocaleDateString()}
+            value={jobData.createdAt.getDate() + '-' + jobData.createdAt.getMonth() + 1 + '-'
+              + jobData.createdAt.getFullYear()}
             focused
             disabled
           />
         </div>
         <div className='flex justify-start items-center'>
-          <pre className='white pr2'>Return Date</pre>
+          <pre className='black pr2'>Return Date</pre>
           <CssTextField
             name='ReturnDate'
             type='date'

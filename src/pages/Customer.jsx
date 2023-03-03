@@ -71,10 +71,10 @@ function Customer() {
           <Grid container direction="row" alignItems="center">
             <Grid item xs className='ma3'>
               <div className='flex justify-start items-center'>
-                <pre className='pr2 white'>{`Customer Id        #${data.c_id}`}</pre>
+                <pre className='pr2 black'>{`Customer Id        #${data.c_id}`}</pre>
               </div>
               <div className='flex justify-start items-center'>
-                <pre className='pr2 white'>Enter Name       </pre>
+                <pre className='pr2 black'>Enter Name       </pre>
                 <TextField
                   variant='outlined'
                   autoFocus
@@ -86,7 +86,7 @@ function Customer() {
                 />
               </div>
               <div className='flex justify-start items-center'>
-                <pre className='pr2 white'>Enter Contact 1 </pre>
+                <pre className='pr2 black'>Enter Contact 1 </pre>
                 <TextField
                   variant='outlined'
                   name='phone'
@@ -98,7 +98,7 @@ function Customer() {
                 />
               </div>
               <div className='flex justify-start items-center'>
-                <pre className='pr2 white'>Enter Contact 2 </pre>
+                <pre className='pr2 black'>Enter Contact 2 </pre>
                 <TextField
                   variant='outlined'
                   name='phone2'
@@ -111,7 +111,7 @@ function Customer() {
               </div>
             </Grid>
             <Grid item className='ma3'>
-              <Avatar variant="rounded" sx={{ background: "#6EB6FF", height: 175, width: 175 }}>
+              <Avatar variant="rounded" sx={{ background: "#19A974", height: 175, width: 175 }}>
                 <PersonAddIcon className="center" sx={{ fontSize: 100 }} />
               </Avatar>
             </Grid>
@@ -119,7 +119,7 @@ function Customer() {
         </Grid>
         <Grid item>
           <div className='flex justify-start items-center ma3'>
-            <pre className='pr2 white'>Enter Address   </pre>
+            <pre className='pr2 black'>Enter Address   </pre>
             <TextField
               variant='outlined'
               name='address'
@@ -139,7 +139,7 @@ function Customer() {
               onClick={handleClick}
             >Create Customer</p>
             <p
-              className='button-border link pointer tc ma2 bg-blue ba bw1 dim dib w5 pa2 br2 b'
+              className='button-border link pointer tc ma2 bg-dark-green b--black light-gray ba bw1 dim dib w5 pa2 br2 b'
               onClick={handleReset}
             >Reset</p>
           </div>

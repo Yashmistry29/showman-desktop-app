@@ -1,8 +1,6 @@
 const electron = require("electron");
 const path = require('path');
 const isDev = require('electron-is-dev');
-const FileSaver = require('file-saver');
-const JSZip = require("jszip");
 let { mainWindow, childWindow } = require('./components');
 const { menu } = require('./components');
 

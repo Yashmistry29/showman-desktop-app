@@ -3,21 +3,27 @@ import TextField from "@mui/material/TextField";
 
 export const CssTextField = styled(TextField)({
   '& .Mui-focused': {
-    color: 'white',
+    color: 'black',
   },
   '& .MuiInput-underline:after': {
     borderBottomColor: 'white',
   },
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
-      borderColor: 'white',
+      borderColor: 'black',
     },
     '&:hover fieldset': {
-      borderColor: 'white',
+      borderColor: 'black',
     },
     '&.Mui-focused fieldset': {
-      borderColor: 'white',
+      borderColor: 'black',
     },
   },
+  '& .MuiInputBase-root': {
+    backgroundColor: '#F4F4F4',
+    '& fieldset': {
+      borderColor: 'black',
+    },
+  }
 });
 

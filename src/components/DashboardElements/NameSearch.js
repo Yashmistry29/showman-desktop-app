@@ -84,7 +84,7 @@ function NameSearch({ data, setData }) {
         <legend className='ph2 pr2 b'>Search Job using Name or Mobile/ નામ અથવા મોબાઈલ નં.</legend>
         <div className='pa2'>
           <div className='flex justify-start items-center'>
-            <pre className='white pr2 font'>Enter Name  </pre>
+            <pre className='black pr2 font'>Enter Name  </pre>
             <Autocomplete
               // disablePortal
               disableClearable
@@ -110,9 +110,9 @@ function NameSearch({ data, setData }) {
               className='w-50'
             /> */}
           </div>
-          <p className='white'>or</p>
+          <p className='black'>or</p>
           <div className='flex justify-start items-center'>
-            <pre className='white pr2'>Enter Mobile</pre>
+            <pre className='black pr2'>Enter Mobile</pre>
             <CssTextField
               variant='outlined'
               name='mobile'
@@ -125,11 +125,11 @@ function NameSearch({ data, setData }) {
           <br />
           <div className='flex justify-start'>
             <p
-              className='button-border link pointer tc ma2 bg-white ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+              className='button-border b--black link pointer tc ma2 bg-green light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
               onClick={handleSearch}
             >Search</p>
             <p
-              className='button-border link pointer tc ma2 bg-white ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+              className='button-border b--black link pointer tc ma2 bg-green light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
               onClick={handleReset}
             >Reset</p>
           </div>

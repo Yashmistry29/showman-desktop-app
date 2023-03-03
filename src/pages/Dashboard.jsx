@@ -23,7 +23,7 @@ function Dashboard() {
           </Grid>
         </Grid>
       </div>
-      <div className='flex w-90 center mt4'>
+      <div className='flex w-90 center mt4 table-border br2'>
         <Grid container direction="row" alignItems="center" justify="space-between" spacing={3}>
           <Grid item xs={12}>
             <TableData data={data} />

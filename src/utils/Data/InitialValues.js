@@ -91,24 +91,28 @@ export const Pocket_Strip = [
 export const Shirt_type = [
   {
     name: "Open Shirt",
-    value: "Open Shirt"
+    value: "ઓપન શર્ટ"
   },
   {
     name: "Bu Shirt",
-    value: "Bu Shirt"
+    value: "બુશર્ટ"
   },
   {
-    name: "Bu-Cut Shirt",
-    value: "Bu-Cut Shirt"
+    name: "Bu Shirt Cut",
+    value: "બુશર્ટ-કટ"
   },
   {
     name: "Safari",
-    value: "Safari"
+    value: "સફારી"
   },
   {
     name: "Kafni",
-    value: "Kafni"
+    value: "કફની"
   },
+  {
+    name: "Kurtu",
+    value: "કુર્તુ"
+  }
 ]
 
 export const jobData = {

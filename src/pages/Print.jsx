@@ -78,9 +78,7 @@ export default function Print() {
           onClick={HandleSave}
         />
       </div>
-      {/* <div id="printContainer" style={{ width: '100%' }}> */}
       <PrintTemplate jobData={jobData} customerData={customerData} ShirtData={ShirtData} PantData={PantData} />
-      {/* </div> */}
     </div>
   )
 }

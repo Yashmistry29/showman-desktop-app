@@ -3,20 +3,19 @@ import {
   TableContainer,
   Table,
   TableHead,
-  TableRow,
-  TableCell,
   TableBody,
+  TablePagination,
   Collapse,
   Box,
-  TablePagination,
   Paper,
 } from '@mui/material';
+import { StyledTableCell as TableCell, StyledTableRow as TableRow } from '../FormElements/TableForms';
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-// import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-// import { sendRequest } from '../../utils/Helpers/HelpersMethod'
-// import { toast, ToastContainer } from 'react-toastify';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { sendRequest } from '../../utils/Helpers/HelpersMethod'
+import { toast, ToastContainer } from 'react-toastify';
 const electron = window.require("electron");
 
 
@@ -28,32 +27,32 @@ const CollapsibleRows = (props) => {
   var createdAt = new Date(data.createdAt);
   var returnDate = new Date(data.returnDate);
 
-  // const handleDelete = (e, job_id, c_id) => {
-  //   sendRequest('/job/deletejob', 'POST', { job_id: job_id, c_id: c_id })
-  //     .then((res) => {
-  //       if (res.success) {
-  //         toast.success(res.message, {
-  //           position: "top-right",
-  //           autoClose: 2000,
-  //           hideProgressBar: false,
-  //           closeOnClick: true,
-  //           pauseOnHover: true,
-  //           draggable: false,
-  //           theme: "colored",
-  //         });
-  //       } else {
-  //         toast.error(res.message, {
-  //           position: "top-right",
-  //           autoClose: 2000,
-  //           hideProgressBar: false,
-  //           closeOnClick: true,
-  //           pauseOnHover: true,
-  //           draggable: false,
-  //           theme: "colored",
-  //         });
-  //       }
-  //     })
-  // }
+  const handleDelete = (e, job_id, c_id) => {
+    sendRequest('/job/deletejob', 'POST', { job_id: job_id, c_id: c_id })
+      .then((res) => {
+        if (res.success) {
+          toast.success(res.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            theme: "colored",
+          });
+        } else {
+          toast.error(res.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            theme: "colored",
+          });
+        }
+      })
+  }
 
   const HandleClick = () => {
     // console.log(data, CustomerData)
@@ -62,7 +61,7 @@ const CollapsibleRows = (props) => {
 
   return (
     <React.Fragment>
-      < TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -81,11 +80,11 @@ const CollapsibleRows = (props) => {
         <TableCell>{returnDate.toDateString()}</TableCell>
         <TableCell>{data.shirt_quantity}</TableCell>
         <TableCell>{data.pant_quantity}</TableCell>
-        {/* <TableCell>
+        <TableCell>
           <IconButton className='deleteButton' onClick={(e) => handleDelete(e, data.job_id, CustomerData.c_id)}>
             <RemoveCircleOutlineIcon />
           </IconButton>
-        </TableCell> */}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={11}>
@@ -93,10 +92,10 @@ const CollapsibleRows = (props) => {
             <Box sx={{ margin: 1 }}>
               <div className='flex justify-start'>
                 <p
-                  className='button-border f7-m link pointer tc ma2 bg-blue ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+                  className='button-border b--black f7-m link pointer tc ma2 bg-green ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
                 >Print Receipt</p>
                 <p
-                  className='button-border f7-m link pointer tc ma2 bg-blue ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+                  className='button-border b--black f7-m link pointer tc ma2 bg-green ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
                   onClick={HandleClick}
                 >Show Job Details</p>
               </div>
@@ -127,9 +126,9 @@ function TableData({ data }) {
 
 
   return (
-    <Paper>
-      {/* <ToastContainer /> */}
-      <TableContainer className='bg-white br2 font'>
+    <Paper >
+      <ToastContainer />
+      <TableContainer className='br2 font'>
         <Table stickyHeader aria-label="Collapsible table" size='small'>
           <TableHead>
             <TableRow>
@@ -143,7 +142,7 @@ function TableData({ data }) {
               <TableCell>Return Date</TableCell>
               <TableCell>Shirts</TableCell>
               <TableCell>Pants</TableCell>
-              {/* <TableCell padding='checkbox' >Delete</TableCell> */}
+              <TableCell padding='checkbox' >Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -160,7 +159,7 @@ function TableData({ data }) {
       {
         JobData.length === 0 ? null :
           <TablePagination
-            rowsPerPageOptions={[5, 8, 10, { value: -1, label: 'All' }]}
+            rowsPerPageOptions={[5, 8, 10, { value: JobData.length, label: 'All' }]}
             component="div"
             count={JobData.length}
             rowsPerPage={rowsPerPage}

@@ -46,7 +46,7 @@ function DateSearch({ data, setData }) {
         <legend className='ph2 pr2 b'>Find Job Between</legend>
         <div className='pa2'>
           <div className='flex justify-start items-center'>
-            <pre className='white pr2'>Start Date</pre>
+            <pre className='black pr2'>Start Date</pre>
             <DatePicker
               disableMaskedInput
               views={['year', 'month', 'day']}
@@ -66,9 +66,9 @@ function DateSearch({ data, setData }) {
               }
             />
           </div>
-          <p className='white'>and</p>
+          <p className='black'>and</p>
           <div className='flex justify-start items-center'>
-            <pre className='white pr2'>End Date  </pre>
+            <pre className='black pr2'>End Date  </pre>
             <DatePicker
               disableMaskedInput
               inputFormat='DD-MMM-YYYY'
@@ -91,11 +91,11 @@ function DateSearch({ data, setData }) {
           <br />
           <div className='flex justify-start'>
             <p
-              className='button-border link pointer tc ma2 bg-white ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+              className='button-border b--black link pointer tc ma2 bg-green light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
               onClick={handleSearch}
             >Search</p>
             <p
-              className='button-border link pointer tc ma2 bg-white ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+              className='button-border b--black link pointer tc ma2 bg-green light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
               onClick={handleReset}
             >Reset</p>
           </div>
