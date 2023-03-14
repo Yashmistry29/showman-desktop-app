@@ -6,32 +6,50 @@ import { jobData as InitialValues } from '../utils/Data/InitialValues'
 import '../styles/dashboard.scss';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-const electron = window.require("electron");
+import { sendRequest } from '../utils/Helpers/HelpersMethod';
+import { useSearchParams } from 'react-router-dom';
 
 
 export default function Print() {
+  const [queryParameters] = useSearchParams()
   const [jobData, setJobData] = React.useState({});
   const [PantData, setPantData] = React.useState({});
   const [ShirtData, setShirtData] = React.useState({});
   const [customerData, setCustomerData] = React.useState({});
+  const ids={
+    job_id:Number(queryParameters.get("job_id")),
+    c_id:Number(queryParameters.get("c_id"))
+  }
 
-  useEffect(() => {
-    electron.ipcRenderer.on('GenerateJobDetails', (e, data) => {
-      // console.log(data);
-      var printContents = data.jobData;
-      setJobData(printContents);
-      printContents.pant_quantity === 0 ?
-        setPantData(InitialValues.pant_data) :
-        setPantData(printContents.pant_data);
-      printContents.shirt_quantity === 0 ?
-        setShirtData(InitialValues.shirt_data) :
-        setShirtData(printContents.shirt_data);
-      printContents = data.CustomerData;
-      setCustomerData(printContents);
-    })
-  }, [])
 
-  // console.log(jobData, customerData, ShirtData, PantData)
+  useEffect(()=>{
+    sendRequest('/job/getJob','POST',{job_id:ids.job_id})
+      .then(result=>{
+        if(result){
+          var printContents = result.data;
+          // console.log(printContents);
+          setJobData(printContents);
+          printContents.pant_quantity === 0 ?
+            setPantData(InitialValues.pant_data) :
+            setPantData(printContents.pant_data);
+          printContents.shirt_quantity === 0 ?
+            setShirtData(InitialValues.shirt_data) :
+            setShirtData(printContents.shirt_data);
+        }
+      })
+      sendRequest('/customer/getcustomer','POST',{c_id:ids.c_id})
+      .then(result=>{
+        if(result){
+          var printContents = result.data;
+          // console.log(printContents);
+          setCustomerData(printContents);
+        }
+      })
+      // eslint-disable-next-line
+  },[])
+
+  console.log(jobData, customerData, ShirtData, PantData)
+  console.log("ids",ids)
 
   const HandlePrint = () => {
     html2canvas(document.querySelector("#printContainer"))

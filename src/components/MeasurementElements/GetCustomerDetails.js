@@ -82,7 +82,7 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
   // console.log(names, id)
   return (
     <div className='pt1'>
-      <fieldset className='br3 b--black bw2'>
+      <fieldset className='b--dashed b--black bw2'>
         <legend className='ph2 pr2 b'>Find Customer</legend>
         <div className='pa2'>
           <div className='flex justify-start items-center'>

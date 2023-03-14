@@ -3,7 +3,6 @@ import React, {
   // useEffect
 } from "react";
 import mainlogo from "../images/SM_Logo.png";
-import { useNavigate } from "react-router";
 import { validateSignup } from "../utils/Validation/FormValidation";
 import { SignupForm } from "../utils/Data/InitialValues";
 import { sendRequest } from "../utils/Helpers/HelpersMethod";
@@ -12,10 +11,9 @@ import { CssTextField } from "../components/FormElements/TextfieldForm";
 
 const Signup = () => {
 
-  const navigate = useNavigate();
-
   const [data, setData] = useState(SignupForm);
   const [errors, setErrors] = useState({});
+  const resetData = SignupForm;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +34,7 @@ const Signup = () => {
               pauseOnHover: true,
               draggable: true,
             });
-            navigate("/login", { replace: true });
+            handleReset();
           }
         }).catch((err) => {
           console.log(err);
@@ -46,6 +44,10 @@ const Signup = () => {
       toast.error("Please check you Inputs");
     }
   };
+
+  const handleReset = (e) => {
+    setData(resetData);
+  }
 
   const handleChange = (e) => {
     // e.persist();
@@ -60,15 +62,15 @@ const Signup = () => {
   return (
     <React.Fragment>
       <ToastContainer />
-      <div className="pt5 pb5 mw8 flex-row w-40 items-center center">
-        <div className="w-60-l w-70-m w-100 center tc">
-          <img src={mainlogo} alt="logo" className="w-100 w-60-m" />
+      <div className="flex items-center mt3">
+        <div className="flex flex-column w-70 center tc pa3">
+          <img src={mainlogo} alt="logo" className="w-100" />
           <p
-            className='f1-l f2-m f3 tc title-font'
+            className='tc title-font'
             style={{ color: "rgb(124, 23, 23)" }}
           >Showman <span className="black">Tailors</span></p>
         </div>
-        <div className="w-100 lsv">
+        <div className="flex w-50 flex-column pa3 lsv">
           <CssTextField
             name="email"
             label="Email Id"
@@ -80,8 +82,8 @@ const Signup = () => {
             onChange={handleChange}
             {...(errors.email && { error: true, helperText: errors.email })}
             // focused
-            InputProps={{ style: { fontSize: "90%", color: "#fff" } }}
-            InputLabelProps={{ style: { fontSize: "90%", color: "#fff" } }}
+            InputProps={{ style: { fontSize: "90%", color: "#000" } }}
+            InputLabelProps={{ style: { fontSize: "90%", color: "#000" } }}
             fullWidth
           />
           <CssTextField
@@ -94,8 +96,8 @@ const Signup = () => {
             onChange={handleChange}
             {...(errors.username && { error: true, helperText: errors.username })}
             // focused
-            InputProps={{ style: { fontSize: "90%", color: "#fff" } }}
-            InputLabelProps={{ style: { fontSize: "90%", color: "#fff" } }}
+            InputProps={{ style: { fontSize: "90%", color: "#000" } }}
+            InputLabelProps={{ style: { fontSize: "90%", color: "#000" } }}
             fullWidth
           />
           <CssTextField
@@ -109,8 +111,8 @@ const Signup = () => {
             onChange={handleChange}
             {...(errors.password && { error: true, helperText: errors.password })}
             // focused
-            InputProps={{ style: { fontSize: "90%", color: "#fff" } }}
-            InputLabelProps={{ style: { fontSize: "90%", color: "#fff" } }}
+            InputProps={{ style: { fontSize: "90%", color: "#000" } }}
+            InputLabelProps={{ style: { fontSize: "90%", color: "#000" } }}
             fullWidth
           />
           <CssTextField
@@ -124,19 +126,15 @@ const Signup = () => {
             onChange={handleChange}
             {...(errors.confirmPassword && { error: true, helperText: errors.confirmPassword })}
             // focused
-            InputProps={{ style: { fontSize: "90%", color: "#fff" } }}
-            InputLabelProps={{ style: { fontSize: "90%", color: "#fff" } }}
+            InputProps={{ style: { fontSize: "90%", color: "#000" } }}
+            InputLabelProps={{ style: { fontSize: "90%", color: "#000" } }}
             fullWidth
           />
-        </div>
-        <a href="/login" className="f6 link dim white db tc pa1" >Already Registerd? Login</a>
-        <div className="flex justify-center">
           <p
-            className="link pointer tc bg-dark-blue white dim dib w3 w5-l w4-m pa2 br2"
+            className="center link pointer tc bg-dark-blue white dim dib w3 w5-l w4-m pa2 br2"
             onClick={handleSubmit}
           >Signup</p>
         </div>
-
       </div>
     </React.Fragment>
   );

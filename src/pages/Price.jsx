@@ -54,18 +54,18 @@ function Price() {
     <React.Fragment>
       <ToastContainer />
       <div className="pa3 flex-column items-center center font">
-        <fieldset className='br3 b--black'>
+        <fieldset className='b--dashed b--black'>
           <legend className='ph2 pr2 b'>Current Price</legend>
-          <pre className='white pr2 pb2'>{`Pant Price : ${currentPrice.pant_price === undefined ? "" : currentPrice.pant_price}`}&#8377;</pre>
-          <pre className='white pr2'>{`Shirt Price: ${currentPrice.shirt_price === undefined ? "" : currentPrice.shirt_price}`}&#8377;</pre>
+          <pre className='black pr2 pb2'>{`Pant Price : ${currentPrice.pant_price === undefined ? "" : currentPrice.pant_price}`}&#8377;</pre>
+          <pre className='black pr2'>{`Shirt Price: ${currentPrice.shirt_price === undefined ? "" : currentPrice.shirt_price}`}&#8377;</pre>
         </fieldset>
         <br />
         <br />
         <br />
-        <fieldset className='br3 b--black'>
+        <fieldset className='b--dashed b--black'>
           <legend className='ph2 pr2 b'>New Price</legend>
           <div className='flex justify-start items-center pb2'>
-            <pre className='white pr2'>Pant Price  </pre>
+            <pre className='black pr2'>Pant Price  </pre>
             <CssTextField
               variant='outlined'
               name='pant_price'
@@ -76,7 +76,7 @@ function Price() {
             />
           </div>
           <div className='flex justify-start items-center pb2'>
-            <pre className='white pr2'>Shirt Price </pre>
+            <pre className='black pr2'>Shirt Price </pre>
             <CssTextField
               variant='outlined'
               name='pant_price'
@@ -89,7 +89,8 @@ function Price() {
         </fieldset>
         <div className="flex justify-center pt2">
           <p
-            className="link pointer tc bg-dark-blue white dim dib w4 pa2 br2"
+            // className="link pointer tc bg-dark-blue white dim dib w4 pa2 br2"
+            className='button-border link pointer tc bg-dark-blue white b--black ba dim dib w4 pa2 br2'
             onClick={handleSubmit}
           >Submit</p>
         </div>

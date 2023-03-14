@@ -14,6 +14,35 @@ export const CssTextField = styled(TextField)({
     },
     '&:hover fieldset': {
       borderColor: 'black',
+      boxShadow: 'inset 0 0 3px black'
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'black',
+      boxShadow: '2px 2px 3px black'
+    },
+  },
+  '& .MuiInputBase-root': {
+    backgroundColor: '#F4F4F4',
+    '& fieldset': {
+      borderColor: 'black',
+    },
+  },
+  
+});
+
+export const CssChildTextField = styled(TextField)({
+  '& .Mui-focused': {
+    color: 'black',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: 'white',
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'black',
+    },
+    '&:hover fieldset': {
+      borderColor: 'black',
     },
     '&.Mui-focused fieldset': {
       borderColor: 'black',
@@ -24,6 +53,6 @@ export const CssTextField = styled(TextField)({
     '& fieldset': {
       borderColor: 'black',
     },
-  }
+  },
+  
 });
-

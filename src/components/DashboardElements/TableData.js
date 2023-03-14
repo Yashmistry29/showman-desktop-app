@@ -13,9 +13,9 @@ import { StyledTableCell as TableCell, StyledTableRow as TableRow } from '../For
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import { sendRequest } from '../../utils/Helpers/HelpersMethod'
-import { toast, ToastContainer } from 'react-toastify';
+// import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+// import { sendRequest } from '../../utils/Helpers/HelpersMethod'
+// import { toast, ToastContainer } from 'react-toastify';
 const electron = window.require("electron");
 
 
@@ -27,36 +27,36 @@ const CollapsibleRows = (props) => {
   var createdAt = new Date(data.createdAt);
   var returnDate = new Date(data.returnDate);
 
-  const handleDelete = (e, job_id, c_id) => {
-    sendRequest('/job/deletejob', 'POST', { job_id: job_id, c_id: c_id })
-      .then((res) => {
-        if (res.success) {
-          toast.success(res.message, {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            theme: "colored",
-          });
-        } else {
-          toast.error(res.message, {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            theme: "colored",
-          });
-        }
-      })
-  }
+  // const handleDelete = (e, job_id, c_id) => {
+  //   sendRequest('/job/deletejob', 'POST', { job_id: job_id, c_id: c_id })
+  //     .then((res) => {
+  //       if (res.success) {
+  //         toast.success(res.message, {
+  //           position: "top-right",
+  //           autoClose: 2000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: false,
+  //           theme: "colored",
+  //         });
+  //       } else {
+  //         toast.error(res.message, {
+  //           position: "top-right",
+  //           autoClose: 2000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: false,
+  //           theme: "colored",
+  //         });
+  //       }
+  //     })
+  // }
 
   const HandleClick = () => {
     // console.log(data, CustomerData)
-    electron.ipcRenderer.send('jobDetails', ({ jobData: data, CustomerData: CustomerData }));
+    electron.ipcRenderer.send('jobDetails', ({ job_id: data.job_id, c_id: CustomerData.c_id }));
   }
 
   return (
@@ -80,11 +80,11 @@ const CollapsibleRows = (props) => {
         <TableCell>{returnDate.toDateString()}</TableCell>
         <TableCell>{data.shirt_quantity}</TableCell>
         <TableCell>{data.pant_quantity}</TableCell>
-        <TableCell>
+        {/* <TableCell>
           <IconButton className='deleteButton' onClick={(e) => handleDelete(e, data.job_id, CustomerData.c_id)}>
             <RemoveCircleOutlineIcon />
           </IconButton>
-        </TableCell>
+        </TableCell> */}
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={11}>
@@ -127,7 +127,7 @@ function TableData({ data }) {
 
   return (
     <Paper >
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <TableContainer className='br2 font'>
         <Table stickyHeader aria-label="Collapsible table" size='small'>
           <TableHead>
@@ -142,7 +142,7 @@ function TableData({ data }) {
               <TableCell>Return Date</TableCell>
               <TableCell>Shirts</TableCell>
               <TableCell>Pants</TableCell>
-              <TableCell padding='checkbox' >Delete</TableCell>
+              {/* <TableCell padding='checkbox' >Delete</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>

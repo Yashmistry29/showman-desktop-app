@@ -80,14 +80,12 @@ function NameSearch({ data, setData }) {
   return (
     <div className='pt1'>
       <ToastContainer />
-      <fieldset className='br3 b--black bw2'>
+      <fieldset className='b--dashed b--black bw2'>
         <legend className='ph2 pr2 b'>Search Job using Name or Mobile/ નામ અથવા મોબાઈલ નં.</legend>
         <div className='pa2'>
           <div className='flex justify-start items-center'>
             <pre className='black pr2 font'>Enter Name  </pre>
             <Autocomplete
-              // disablePortal
-              disableClearable
               freeSolo
               options={names}
               fullWidth

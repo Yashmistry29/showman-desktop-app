@@ -42,7 +42,7 @@ function DateSearch({ data, setData }) {
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <ToastContainer />
-      <fieldset className='br3 b--black bw2'>
+      <fieldset className='b--dashed b--black bw2'>
         <legend className='ph2 pr2 b'>Find Job Between</legend>
         <div className='pa2'>
           <div className='flex justify-start items-center'>

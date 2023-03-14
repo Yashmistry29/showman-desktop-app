@@ -4,8 +4,8 @@ export function validateSignup(values) {
   //username Errors
   if (!values.username) {
     errors.username = "A username is required.";
-  } else if (values.username.length < 4) {
-    errors.username = "A username must be at least 4 characters.";
+  } else if (values.username.length < 2) {
+    errors.username = "A username must be at least 2 characters.";
   }
 
   // email Errors
@@ -18,15 +18,15 @@ export function validateSignup(values) {
   // Password Errors
   if (!values.password) {
     errors.password = "A password is required.";
-  } else if (values.password.length < 6) {
-    errors.password = "Your password must be at least 6 characters.";
+  } else if (values.password.length < 2) {
+    errors.password = "Your password must be at least 2 characters.";
   }
 
   // Confirm Password Errors
   if (!values.confirmPassword) {
     errors.confirmPassword = "A password is required.";
-  } else if (values.confirmPassword.length < 6) {
-    errors.confirmPassword = "Your password must be at least 6 characters.";
+  } else if (values.confirmPassword.length < 2) {
+    errors.confirmPassword = "Your password must be at least 2 characters.";
   } else if (values.password !== values.confirmPassword) {
     errors.confirmPassword = "Passwords must match.";
   }
@@ -39,15 +39,15 @@ export function validateSignin(values) {
   //username Errors
   if (!values.username) {
     errors.username = "A username is required.";
-  } else if (values.username.length < 4) {
+  } else if (values.username.length < 2) {
     errors.username = "A username must be at least 4 characters.";
   }
 
   // Password Errors
   if (!values.password) {
     errors.password = "A password is required.";
-  } else if (values.password.length < 6) {
-    errors.password = "Your password must be at least 6 characters.";
+  } else if (values.password.length < 2) {
+    errors.password = "Your password must be at least 2 characters.";
   }
 
   return errors;

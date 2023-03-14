@@ -65,11 +65,8 @@ ipcMain.on('jobDetails', (e, data) => {
   childWindow = new BrowserWindow({ height: 600, width: 900, parent: mainWindow, show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
   // childWindow.setMenu(null);
   isDev ?
-    childWindow.loadURL('http://localhost:3000/#/print') :
-    childWindow.loadFile(`${path.join(__dirname, 'index.html')}`, { hash: '/print' });
-  childWindow.webContents.on('did-finish-load', () => {
-    childWindow.webContents.send('GenerateJobDetails', (data))
-  })
+    childWindow.loadURL(`http://localhost:3000/#/print?job_id=${data.job_id}&c_id=${data.c_id}`) :
+    childWindow.loadFile(`${path.join(__dirname, 'index.html')}`, { hash: `/print?job_id=${data.job_id}&c_id=${data.c_id}` });
   childWindow.maximize();
   childWindow.show();
 })

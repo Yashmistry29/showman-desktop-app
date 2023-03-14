@@ -11,6 +11,7 @@ import { validateShirtData, validatePantData, validateDate } from '../utils/Vali
 import { toast, ToastContainer } from 'react-toastify';
 import { jobData } from '../utils/Data/InitialValues';
 import '../styles/dashboard.scss';
+const electron = window.require("electron");
 
 function Measurement() {
 
@@ -27,6 +28,7 @@ function Measurement() {
   const [sData, setSData] = useState(jobData.shirt_data);
   const [pData, setPData] = useState(jobData.pant_data);
   const [update, setUpdate] = useState(false);
+  const [totalPrice,setTotalPrice]=useState(0);
   const resetData = jobData;
   const resetChecked = checked;
 
@@ -46,6 +48,17 @@ function Measurement() {
     const { name, checked } = e.target;
     setCheckedData({ ...checkedData, [name]: checked });
   }
+
+  useEffect(()=>{
+    var total=0
+    if (checkedData.pant) {
+      total += Number(pData.price) * pQuantity;
+    }
+    if (checkedData.shirt) {
+      total += Number(sData.price) * sQuantity;
+    }
+    setTotalPrice(total);
+  },[checkedData.pant, checkedData.shirt, pData.price, pQuantity, sData.price, sQuantity])
 
 
   useEffect(() => {
@@ -90,6 +103,7 @@ function Measurement() {
       data.totalPrice += Number(sData.price) * data.shirt_quantity;
       data["shirt_data"] = sData;
     }
+    setTotalPrice(data.totalPrice);  
     var dateerrors = validateDate(data.createdAt, data.returnDate);
     var isValidDate = Object.keys(dateerrors).length === 0;
     setDateError(dateerrors);
@@ -121,6 +135,7 @@ function Measurement() {
             });
           }
           handleReset();
+          electron.ipcRenderer.send('jobDetails', ({ job_id:data.job_id, c_id: customerData.c_id }));
         })
     }
   }
@@ -138,6 +153,7 @@ function Measurement() {
     setReturnDate(jobData.returnDate);
     setpErrors({});
     setsErrors({});
+    setCustomerData({});
     setJobId(0);
   }
 
@@ -202,9 +218,10 @@ function Measurement() {
         </Grid>
       </div>
       <CustomerMeasurement checkedData={checkedData} sData={sData} pData={pData} setSData={setSData} setPData={setPData} shirtQuantity={sQuantity} pantQuantity={pQuantity} setSQuantity={setSQuantity} setPQuantity={setPQuantity} sErrors={sErrors} pErrors={pErrors} />
-      <div className='flex w-90 justify-end center mt1 font'>
+      <div className='flex flex-column-m w-90 justify-end center mv2 font b--dashed'>
+        <pre className='pr2 f3 black mr2'>Total Price: <span className='b'>{totalPrice}</span>&#8377;</pre>
         <div className='flex justify-start items-center'>
-          <p className='black pr2'>Created At</p>
+          <p className='black f4 ph2'>Created At</p>
           <CssTextField
             name='createdAt'
             className='w-60'
@@ -215,7 +232,7 @@ function Measurement() {
           />
         </div>
         <div className='flex justify-start items-center'>
-          <pre className='black pr2'>Return Date</pre>
+          <pre className='black f4 ph2'>Return Date</pre>
           <CssTextField
             name='ReturnDate'
             type='date'
@@ -226,14 +243,16 @@ function Measurement() {
             {...(dateError.date && { error: true, helperText: dateError.date })}
 
           />
-          <p
-            className='button-border link pointer tc ma2 f7 f5-l f6-m bg-white ba bw1 dim dib w2 w4-l w3-m pa2 br2 b'
-            onClick={handleSubmit}
-          >Submit</p>
-          <p
-            className='button-border link pointer tc ma2 f7 f5-l f6-m bg-white ba bw1 dim dib w2 w4-l w3-m pa2 br2 b'
-            onClick={handleReset}
-          >Reset</p>
+          <div className='flex justify-start items-center ph3'>
+            <p
+              className='button-border link pointer tc ma2 f4 bg-white ba bw1 dim dib w2 w4-l w3-m pa2 br2 b'
+              onClick={handleSubmit}
+            >Submit</p>
+            <p
+              className='button-border link pointer tc ma2 f4 bg-white ba bw1 dim dib w2 w4-l w3-m pa2 br2 b'
+              onClick={handleReset}
+            >Reset</p>
+          </div>
         </div>
       </div>
     </div>

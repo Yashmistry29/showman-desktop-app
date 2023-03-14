@@ -14,7 +14,18 @@ const MenuTemplate = [
   {
     label: "File",
     submenu: [
-      { label: "New Admin", accelerator: "CmdOrCtrl+D" },
+      { 
+        label: "New Admin", 
+        accelerator: "CmdOrCtrl+D",
+        click:()=>{
+          childWindow = new BrowserWindow({ height: 550, width: 800, parent: mainWindow, show: false, maximizable: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
+          childWindow.setMenu(null);
+          isDev ?
+            childWindow.loadURL('http://localhost:3000/#/signup') :
+            childWindow.loadFile(`${path.join(__dirname, 'index.html')}`, { hash: '/signup' });
+          childWindow.show()
+        }
+      },
       { type: 'separator' },
       {
         label: "Backup/Restore",
