@@ -56,7 +56,7 @@ export default function Print() {
       .then(async (canvas) => {
         var printImg = canvas.toDataURL('image/png');
         var pdf = new jsPDF('l', 'mm');
-        pdf.addImage(printImg, 'PNG', 87, 60, 210, 90, "PrintTemplate", "NONE");
+        pdf.addImage(printImg, 'PNG', 75, 58, 220, 95, "PrintTemplate", "NONE");
         const data = pdf.output('bloburl');
         const iframe = document.createElement('iframe');
         document.body.appendChild(iframe);

@@ -17,8 +17,8 @@ function PrintTemplate({ jobData, customerData, ShirtData, PantData }) {
               </div>
             </td>
             <td colSpan={2} className="ph3">
-              <pre className='f3 mb1 b mt1'>{`Job Date\t: ${createdAt.getDate() + '-' + Number(createdAt.getUTCMonth() + 1) + '-' + createdAt.getFullYear()}`}</pre>
-              <pre className='f3 mb1 b mt1'>{`Customer Id\t: ${customerData.c_id}`}</pre>
+              <pre className='f3-xl mb1 b mt1'>{`Job Date\t: ${createdAt.getDate() + '-' + Number(createdAt.getUTCMonth() + 1) + '-' + createdAt.getFullYear()}`}</pre>
+              <pre className='f3-xl mb1 b mt1'>{`Customer Id\t: ${customerData.c_id}`}</pre>
             </td>
           </tr>
           <tr>
@@ -68,13 +68,13 @@ function PrintTemplate({ jobData, customerData, ShirtData, PantData }) {
           </tr>
           <tr>
             <td colSpan={2} className="ph2">
-              <pre className='f3 b ma1'>{`Name\t: ${customerData.name}`}</pre>
-              <pre className='f3 b ma1'>{`Address\t: ${customerData.address}`}</pre>
-              <pre className='f3 b ma1'>{`Contact\t: ${customerData.phone}, ${customerData.phone2}`}</pre>
+              <pre className='f3-xl b ma1'>{`Name\t: ${customerData.name}`}</pre>
+              <pre className='f3-xl b ma1'>{`Address\t: ${customerData.address}`}</pre>
+              <pre className='f3-xl b ma1'>{`Contact\t: ${customerData.phone}, ${customerData.phone2}`}</pre>
             </td>
             <td colSpan={2} className="ph3">
-              <pre className='f3 b mt3'>{`JobNumber     : ${jobData.job_id}`}</pre>
-              <pre className='f3 b ma1'>{`Delivery Date : ${returnDate.getDate() + '-' + Number(returnDate.getUTCMonth() + 1) + '-' + returnDate.getFullYear()}`}</pre>
+              <pre className='f3-xl b mt3'>{`JobNumber     : ${jobData.job_id}`}</pre>
+              <pre className='f3-xl b ma1'>{`Delivery Date : ${returnDate.getDate() + '-' + Number(returnDate.getUTCMonth() + 1) + '-' + returnDate.getFullYear()}`}</pre>
             </td>
           </tr>
         </tbody>
