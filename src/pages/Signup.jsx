@@ -76,7 +76,7 @@ const Signup = () => {
             label="Email Id"
             size="small"
             variant="outlined"
-            focused
+            autoFocus
             margin="dense"
             value={data.email}
             onChange={handleChange}
@@ -130,10 +130,10 @@ const Signup = () => {
             InputLabelProps={{ style: { fontSize: "90%", color: "#000" } }}
             fullWidth
           />
-          <p
-            className="center link pointer tc bg-dark-blue white dim dib w3 w5-l w4-m pa2 br2"
+          <button
+            className="center link mt2 pointer tc bg-dark-blue white dim dib w3 w5-l w4-m pa2 br2"
             onClick={handleSubmit}
-          >Signup</p>
+          >Signup</button>
         </div>
       </div>
     </React.Fragment>

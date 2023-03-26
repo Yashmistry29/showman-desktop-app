@@ -48,8 +48,8 @@ export default function Print() {
       // eslint-disable-next-line
   },[])
 
-  console.log(jobData, customerData, ShirtData, PantData)
-  console.log("ids",ids)
+  // console.log(jobData, customerData, ShirtData, PantData)
+  // console.log("ids",ids)
 
   const HandlePrint = () => {
     html2canvas(document.querySelector("#printContainer"))

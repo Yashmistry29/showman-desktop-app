@@ -40,7 +40,17 @@ const ShirtGrid = ({ data, setData, checkedData, quantity, setQuantity, errors }
 						>
 							{
 								Shirt_type.map((type) => (
-									<MenuItem key={type.value} value={type.value}>
+									<MenuItem key={type.value} value={type.value} sx={{
+										"& li": {
+											backgroundColor: "white",
+										},
+										"&:hover": {
+											backgroundColor: "#9966cb",
+										},
+										"&.Mui-focusVisible": {
+											backgroundColor: "#9966cb",
+										}
+									}}>
 										{type.name}
 									</MenuItem>
 								))
@@ -172,7 +182,17 @@ const ShirtGrid = ({ data, setData, checkedData, quantity, setQuantity, errors }
 						>
 							{
 								Pocket_Strip.map((type) => (
-									<MenuItem key={type.value} value={type.value}>
+									<MenuItem key={type.value} value={type.value} sx={{
+										"& li": {
+											backgroundColor: "white",
+										},
+										"&:hover": {
+											backgroundColor: "#9966cb",
+										},
+										"&.Mui-focusVisible": {
+											backgroundColor: "#9966cb",
+										}
+									}}>
 										{type.name}
 									</MenuItem>
 								))

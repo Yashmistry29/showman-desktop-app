@@ -6,7 +6,7 @@ import { CssTextField } from '../FormElements/TextfieldForm';
 import { toast, ToastContainer } from 'react-toastify';
 import { sendRequest } from '../../utils/Helpers/HelpersMethod';
 
-function DateSearch({ data, setData }) {
+function DateSearch({ data, setData, setPage }) {
   const [value, setValue] = React.useState(initialValues)
   const resetData = initialValues;
 
@@ -37,6 +37,7 @@ function DateSearch({ data, setData }) {
   const handleReset = () => {
     setValue(resetData);
     setData({});
+    setPage(0);
   }
 
   return (
@@ -91,11 +92,11 @@ function DateSearch({ data, setData }) {
           <br />
           <div className='flex justify-start'>
             <p
-              className='button-border b--black link pointer tc ma2 bg-green light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+              className='button-border b--black link pointer tc ma2 bg-button light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2'
               onClick={handleSearch}
             >Search</p>
             <p
-              className='button-border b--black link pointer tc ma2 bg-green light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+              className='button-border b--black link pointer tc ma2 bg-button light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2'
               onClick={handleReset}
             >Reset</p>
           </div>

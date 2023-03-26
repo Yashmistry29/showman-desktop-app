@@ -104,11 +104,11 @@ const Login = () => {
             fullWidth
           />
         </div>
-        <div className="flex justify-center">
-          <p
+        <div className="flex justify-center mt2">
+          <button
             className="link pointer tc bg-dark-blue shadow-3 white dim dib w4 pa2 br2"
             onClick={handleSubmit}
-          >Login</p>
+          >Login</button>
         </div>
       </div>
     </React.Fragment>

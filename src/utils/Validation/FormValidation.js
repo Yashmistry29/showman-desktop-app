@@ -63,13 +63,6 @@ export function ValidateCustomer(values) {
     errors.name = "Name must be atleast 4 Characters.";
   }
 
-  //mobile errors
-  if (!values.phone) {
-    errors.phone = "A Mobile Number is required";
-  } else if (values.phone.length !== 10) {
-    errors.phone = "Number Missing Enter Mobile number again";
-  }
-
   if (!values.address) {
     errors.address = "A Address is required";
   } else if (values.name.length < 4) {

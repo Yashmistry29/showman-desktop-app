@@ -5,7 +5,7 @@ import { Autocomplete } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import { sendRequest } from '../../utils/Helpers/HelpersMethod';
 
-function NameSearch({ data, setData }) {
+function NameSearch({ data, setData, setPage }) {
 
   const [names, setNames] = useState([]);
   const [search, setSearch] = useState(initialValues)
@@ -17,9 +17,10 @@ function NameSearch({ data, setData }) {
       sendRequest("/job/getAllJobDataByName", "POST", search)
         .then((res) => {
           if (res.success) {
+            var data = res.data.reverse();
             setData({
               customerData: res.customerData,
-              jobData: res.data
+              jobData: data
             })
           }
         })
@@ -28,10 +29,11 @@ function NameSearch({ data, setData }) {
       sendRequest('/job/getAllJobDataByMobile', 'POST', search)
         .then((res) => {
           // console.log(res);
+          var data = res.data.reverse();
           if (res.success) {
             setData({
               customerData: res.customerData,
-              jobData: res.data
+              jobData: data
             })
           } else {
             toast.error(res.message, {
@@ -51,6 +53,7 @@ function NameSearch({ data, setData }) {
   const handleReset = () => {
     setSearch(resetData);
     setData({});
+    setPage(0);
   }
 
   const handleChange = (e) => {
@@ -90,6 +93,16 @@ function NameSearch({ data, setData }) {
               options={names}
               fullWidth
               size='small'
+              ListboxProps={{
+                sx: {
+                  "& li": {
+                    backgroundColor: "white",
+                  },
+                  "&:hover": {
+                    backgroundColor: "#9966cb",
+                  }
+                }
+              }}
               onChange={handleAutocomplete}
               getOptionLabel={(option) => option.name}
               renderInput={(params) => <CssTextField
@@ -98,6 +111,7 @@ function NameSearch({ data, setData }) {
                 variant='outlined'
                 className='w-60'
                 autoFocus
+
               />}
             />
             {/* <CssTextField
@@ -122,14 +136,14 @@ function NameSearch({ data, setData }) {
           </div>
           <br />
           <div className='flex justify-start'>
-            <p
-              className='button-border b--black link pointer tc ma2 bg-green light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+            <button
+              className='button-border b--black link pointer tc ma2 bg-button light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2'
               onClick={handleSearch}
-            >Search</p>
-            <p
-              className='button-border b--black link pointer tc ma2 bg-green light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+            >Search</button>
+            <button
+              className='button-border b--black link pointer tc ma2 bg-button light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2'
               onClick={handleReset}
-            >Reset</p>
+            >Reset</button>
           </div>
         </div>
       </fieldset>

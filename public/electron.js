@@ -1,7 +1,7 @@
 const electron = require("electron");
 const path = require('path');
 const isDev = require('electron-is-dev');
-let { mainWindow, childWindow } = require('./components');
+let { mainWindow, childWindow, printMenu, HomePageWindow } = require('./components');
 const { menu } = require('./components');
 
 const app = electron.app;
@@ -22,6 +22,7 @@ const createWindow = () => {
   childWindow.on('closed', () => {
     childWindow = null;
   });
+
 }
 
 app.on('ready', () => {
@@ -49,6 +50,25 @@ ipcMain.on('Authenticated', (e, args) => {
   e.preventDefault();
   if (args) {
     childWindow.close();
+    HomePageWindow = new BrowserWindow({ height: 750, width: 850, maximizable: false, frame: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
+    HomePageWindow.setMenu(null);
+    // mainWindow.setMenu(menu);
+    isDev ?
+      HomePageWindow.loadURL('http://localhost:3000/#/homepage') :
+      HomePageWindow.loadFile(`${path.join(__dirname, 'index.html')}`, { hash: '/homepage' });
+    // mainWindow.maximize();
+    HomePageWindow.show();
+
+    HomePageWindow.on('closed', () => {
+      HomePageWindow = null;
+    })
+  }
+});
+
+ipcMain.on('Timeout', (e, args) => {
+  e.preventDefault();
+  if (args) {
+    HomePageWindow.close()
     mainWindow = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
     mainWindow.setMenu(menu);
     isDev ?
@@ -57,13 +77,13 @@ ipcMain.on('Authenticated', (e, args) => {
     mainWindow.maximize();
     mainWindow.show();
   }
-});
+})
 
 ipcMain.on('jobDetails', (e, data) => {
   e.preventDefault();
   // console.log(data.CustomerData, data.jobData);
-  childWindow = new BrowserWindow({ height: 600, width: 900, parent: mainWindow, show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
-  // childWindow.setMenu(null);
+  childWindow = new BrowserWindow({ parent: mainWindow, show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
+  childWindow.setMenu(printMenu);
   isDev ?
     childWindow.loadURL(`http://localhost:3000/#/print?job_id=${data.job_id}&c_id=${data.c_id}`) :
     childWindow.loadFile(`${path.join(__dirname, 'index.html')}`, { hash: `/print?job_id=${data.job_id}&c_id=${data.c_id}` });

@@ -21,6 +21,7 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
     } else {
       setJobSelect(true);
       setUpdate(true)
+      value.job_ids.reverse();
       setJobIds(jobIds => [...jobIds, ...value.job_ids]);
     }
   }
@@ -92,6 +93,16 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
               options={names}
               fullWidth
               onChange={handleChange}
+              ListboxProps={{
+                sx: {
+                  "& li": {
+                    backgroundColor: "white",
+                  },
+                  "&:hover": {
+                    backgroundColor: "#9966cb",
+                  }
+                }
+              }}
               getOptionLabel={(option) => option.name}
               renderInput={(params) => <CssTextField
                 {...params}
@@ -120,16 +131,26 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
             >
               {
                 jobIds.map((val) => (
-                  <MenuItem key={val} value={val}>
+                  <MenuItem key={val} value={val} sx={{
+                    "& li": {
+                      backgroundColor: "white",
+                    },
+                    "&:hover": {
+                      backgroundColor: "#9966cb",
+                    },
+                    "&.Mui-focusVisible": {
+                      backgroundColor: "#9966cb",
+                    }
+                  }}>
                     {val}
                   </MenuItem>
                 ))
               }
             </CssTextField>
-            <p
-              className='button-border b--black link pointer tc ma2 bg-green light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+            <button
+              className='button-border b--black link pointer tc ma2 bg-button light-gray ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
               onClick={handleView}
-            >View</p>
+            >View</button>
           </div>
         </div>
       </fieldset>

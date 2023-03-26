@@ -61,12 +61,11 @@ const CollapsibleRows = (props) => {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} onClick={() => setOpen(!open)}>
         <TableCell>
           <IconButton
             aria-label="expand row"
             size="small"
-            onClick={() => setOpen(!open)}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
@@ -91,13 +90,13 @@ const CollapsibleRows = (props) => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <div className='flex justify-start'>
-                <p
-                  className='button-border b--black f7-m link pointer tc ma2 bg-green ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
-                >Print Receipt</p>
-                <p
-                  className='button-border b--black f7-m link pointer tc ma2 bg-green ba bw1 dim dib w3 w5-l w4-m pa2 br2 b'
+                <button
+                  className='button-border b--black f7-m link pointer tc ma2 bg-button white ba bw1 dim dib w3 w5-l w4-m pa2 br2'
+                >Print Receipt</button>
+                <button
+                  className='button-border b--black f7-m link pointer tc ma2 bg-button white ba bw1 dim dib w3 w5-l w4-m pa2 br2'
                   onClick={HandleClick}
-                >Show Job Details</p>
+                >Show Job Details</button>
               </div>
             </Box>
           </Collapse>
@@ -107,10 +106,9 @@ const CollapsibleRows = (props) => {
   )
 }
 
-function TableData({ data }) {
+function TableData({ data, page, setPage }) {
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(8);
 
   const JobData = data.jobData === undefined ? '' : data.jobData;
   const CustomerData = data.customerData === undefined ? '' : data.customerData;
@@ -159,7 +157,7 @@ function TableData({ data }) {
       {
         JobData.length === 0 ? null :
           <TablePagination
-            rowsPerPageOptions={[5, 8, 10, { value: JobData.length, label: 'All' }]}
+            rowsPerPageOptions={[8, 10, 15, { value: JobData.length, label: 'All' }]}
             component="div"
             count={JobData.length}
             rowsPerPage={rowsPerPage}

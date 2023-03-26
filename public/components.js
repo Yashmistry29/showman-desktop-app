@@ -9,6 +9,7 @@ const isMac = process.platform === 'darwin'
 
 let mainWindow;
 let childWindow;
+let HomePageWindow;
 
 const MenuTemplate = [
   {
@@ -50,7 +51,7 @@ const MenuTemplate = [
         label: "Create/Update Customer",
         accelerator: "CmdOrCtrl+U",
         click: () => {
-          childWindow = new BrowserWindow({ height: 550, width: 800, parent: mainWindow, show: false, maximizable: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
+          childWindow = new BrowserWindow({ height: 580, width: 800, parent: mainWindow, show: false, maximizable: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
           childWindow.setMenu(null);
           isDev ?
             childWindow.loadURL('http://localhost:3000/#/customer') :
@@ -114,10 +115,25 @@ const MenuTemplate = [
   }
 ];
 
+const printMenuTemplate = [
+  {
+    label: "Developer Tools",
+    submenu: [
+      { role: 'reload' },
+      { role: 'forceReload' },
+      { type: 'separator' },
+      { label: "Toggle Developer Tools", role: 'toggleDevTools' }
+    ]
+  }
+]
+
 const menu = Menu.buildFromTemplate(MenuTemplate);
+const printMenu = Menu.buildFromTemplate(printMenuTemplate);
 
 module.exports = {
   menu,
+  printMenu,
   mainWindow,
-  childWindow
+  childWindow,
+  HomePageWindow
 }

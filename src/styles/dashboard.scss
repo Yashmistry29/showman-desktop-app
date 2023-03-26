@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;500&display=swap');
+
 .button-border{
   box-shadow: 1px 1px 3px #000;
 }
@@ -24,10 +26,35 @@
 
 .f3-xl{
     font-size: 1.8em;
+    letter-spacing: 1px;
 }
 
 .w-95{
   width: 98%;
+}
+
+.font1{
+  p,pre,tr,td,legend,label{
+    font-family: 'Azeret Mono', monospace;
+    font-weight: 400;
+  }
+  th{
+    font-family: 'Azeret Mono', monospace;
+    font-weight: 400;
+  }
+  // letter-spacing: 1px;
+}
+
+.font2{
+  p,pre,tr,td,legend,label{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+  }
+  th{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+  }
+  // letter-spacing: 1px;
 }
 
 #printContainer{
@@ -42,5 +69,16 @@
     border: 1px solid black;
     word-wrap: break-word;
   }
+}
 
+.bg-button{
+  background-color: #784b84 ;
+}
+
+.btn-text{
+  color: #7c4700 ;
+}
+
+.b--dashed-color{
+  border-color: #311432;
 }

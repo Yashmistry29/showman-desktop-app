@@ -41,7 +41,17 @@ const PantGrid = ({ data, setData, checkedData, quantity, setQuantity, errors })
             >
               {
                 belt_type.map((type) => (
-                  <MenuItem key={type.value} value={type.value}>
+                  <MenuItem key={type.value} value={type.value} sx={{
+                    "& li": {
+                      backgroundColor: "white",
+                    },
+                    "&:hover": {
+                      backgroundColor: "#9966cb",
+                    },
+                    "&.Mui-focusVisible": {
+                      backgroundColor: "#9966cb",
+                    }
+                  }}>
                     {type.name}
                   </MenuItem>
                 ))
@@ -149,7 +159,17 @@ const PantGrid = ({ data, setData, checkedData, quantity, setQuantity, errors })
             >
               {
                 Pocket_Type.map((type) => (
-                  <MenuItem key={type.value} value={type.value}>
+                  <MenuItem key={type.value} value={type.value} sx={{
+                    "& li": {
+                      backgroundColor: "white",
+                    },
+                    "&:hover": {
+                      backgroundColor: "#9966cb",
+                    },
+                    "&.Mui-focusVisible": {
+                      backgroundColor: "#9966cb",
+                    }
+                  }}>
                     {type.name}
                   </MenuItem>
                 ))

@@ -1,20 +1,26 @@
 import React from 'react'
 import { CircularProgress } from '@mui/material';
-import { useNavigate } from 'react-router-dom'
+import mainlogo from "../images/SM_Logo.png";
 import '../styles/homepage.scss'
+const electron = window.require("electron");
 
 function Homepage() {
-  const history = useNavigate()
 
-  setTimeout(() => {
-    history('/dashboard')
-  }, 10000);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      electron.ipcRenderer.send('Timeout', true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [])
 
   return (
-    <div className='center'>
-      <CircularProgress />
-      <h1>Loading....</h1>
-
+    <div className="flex flex-column w-80 center tc pa3 mt3">
+      <img src={mainlogo} alt="logo" className="w-100" />
+      <p
+        className='tc title-font'
+        style={{ color: "rgb(124, 23, 23)", letterSpacing: "2px" }}
+      >Showman <span className="black">Tailors</span></p>
+      <CircularProgress className='center' />
     </div>
   )
 }

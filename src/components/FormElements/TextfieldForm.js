@@ -26,8 +26,10 @@ export const CssTextField = styled(TextField)({
     '& fieldset': {
       borderColor: 'black',
     },
+    '&.Mui-focused': {
+      backgroundColor: '#d7bfdc',
+    },
   },
-  
 });
 
 export const CssChildTextField = styled(TextField)({
@@ -54,5 +56,4 @@ export const CssChildTextField = styled(TextField)({
       borderColor: 'black',
     },
   },
-  
 });

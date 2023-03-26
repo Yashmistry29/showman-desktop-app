@@ -21,6 +21,10 @@ export const NameSearch = {
   mobile: "",
 }
 
+export const CustomerSearch = {
+  name: "-",
+}
+
 export const price = {
   shirt_price: 0,
   pant_price: 0
@@ -35,9 +39,11 @@ export const CreateCustomer = {
 }
 
 export const checked = {
-  shirt: false,
-  pant: false,
+  shirt: true,
+  pant: true,
 }
+
+export const NewCustomer = true;
 
 export const belt_type = [
   {
@@ -72,19 +78,19 @@ export const Pocket_Type = [
 export const Pocket_Strip = [
   {
     name: "In",
-    value: "in"
+    value: "અંદર"
   },
   {
     name: "Out 1in",
-    value: "1 inch"
+    value: "આગળ 1 in"
   },
   {
     name: "Out 1.25in",
-    value: "1.25 inch"
+    value: "આગળ 1.25 in"
   },
   {
     name: "Out 1.5in",
-    value: "1.5 inch"
+    value: "આગળ 1.5 in"
   },
 ]
 
@@ -116,8 +122,8 @@ export const Shirt_type = [
 ]
 
 export const jobData = {
-  shirt_quantity: 0,
-  pant_quantity: 0,
+  shirt_quantity: 1,
+  pant_quantity: 1,
   createdAt: new Date(),
   returnDate: new Date(),
   totalPrice: 0,

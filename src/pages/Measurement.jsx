@@ -146,14 +146,15 @@ function Measurement() {
 
   const handleReset = (e) => {
     setCheckedData({ ...resetChecked });
-    setSQuantity(resetData.no_of_shirts);
-    setPQuantity(resetData.no_of_pants);
+    setSQuantity(resetData.shirt_quantity);
+    setPQuantity(resetData.pant_quantity);
     setSData({ ...resetData.shirt_data });
     setPData({ ...resetData.pant_data });
     setReturnDate(jobData.returnDate);
     setpErrors({});
     setsErrors({});
     setCustomerData({});
+    setId(0)
     setJobId(0);
   }
 
@@ -244,14 +245,14 @@ function Measurement() {
 
           />
           <div className='flex justify-start items-center ph3'>
-            <p
-              className='button-border link pointer tc ma2 f4 bg-white ba bw1 dim dib w2 w4-l w3-m pa2 br2 b'
+            <button
+              className='button-border link pointer tc ma2 f4 bg-green white ba bw1 dim dib w2 w4-l w3-m pa2 br2'
               onClick={handleSubmit}
-            >Submit</p>
-            <p
-              className='button-border link pointer tc ma2 f4 bg-white ba bw1 dim dib w2 w4-l w3-m pa2 br2 b'
+            >Submit</button>
+            <button
+              className='button-border link pointer tc ma2 f4 bg-white ba bw1 dim dib w2 w4-l w3-m pa2 br2'
               onClick={handleReset}
-            >Reset</p>
+            >Reset</button>
           </div>
         </div>
       </div>
