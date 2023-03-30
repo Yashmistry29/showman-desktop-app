@@ -24,12 +24,12 @@ function PrintTemplate({ jobData, customerData, ShirtData, PantData }) {
           <tr>
             <td className='pv3 font2' colSpan={2}>
               <div className='fl w-50 pa2'>
-                <pre className='f3-xl mb3 ml3 b mt1'>{`પેન્ટ\t : ${jobData.pant_quantity}`}</pre>
+                <pre className='f3-xl mb4 ml2 b mt0'>{`પેન્ટ\t : ${jobData.pant_quantity}`}</pre>
                 <pre className='f3-xl ma3'><span className="b">{`લંબાઈ\t : `}</span>{PantData === undefined ? "" : PantData.p_length}</pre>
                 <pre className='f3-xl ma3'><span className="b">{`કમર\t : `}</span>{PantData === undefined ? "" : PantData.waist}</pre>
                 <pre className='f3-xl ma3'><span className="b">{`ઝોલો\t : `}</span>{PantData === undefined ? "" : PantData.jholo}</pre>
-                <pre className='f3-xl ma3'><span className="b">{`સીટ\t  : `}</span>{PantData === undefined ? "" : PantData.seat}</pre>
-                <pre className='f3-xl ma3'><span className="b">{`જાંઘ\t  : `}</span>{PantData === undefined ? "" : PantData.thighs}</pre>
+                <pre className='f3-xl ma3'><span className="b">{`સીટ\t : `}</span>{PantData === undefined ? "" : PantData.seat}</pre>
+                <pre className='f3-xl ma3'><span className="b">{`જાંઘ\t : `}</span>{PantData === undefined ? "" : PantData.thighs}</pre>
                 <pre className='f3-xl ma3'><span className="b">{`ઘુંટણ\t : `}</span>{PantData === undefined ? "" : PantData.knee}</pre>
                 <pre className='f3-xl ma3'><span className="b">{`મોરી\t : `}</span>{PantData === undefined ? "" : PantData.bottom}</pre>
               </div>
@@ -46,7 +46,7 @@ function PrintTemplate({ jobData, customerData, ShirtData, PantData }) {
             </td>
             <td className='pv3 font2' colSpan={2}>
               <div className='fl w-50 pa2'>
-                <pre className='f3-xl mb3 ml3 b mt1'>{`${ShirtData.shirt_type} : ${jobData.shirt_quantity}`}</pre>
+                <pre className='f3-xl mb4 ml2 mt0 b'>{`${ShirtData.shirt_type} : ${jobData.shirt_quantity}`}</pre>
                 <pre className='f3-xl ma3'><span className="b">{`લંબાઈ : `}</span>{ShirtData === undefined ? "" : ShirtData.s_length}</pre>
                 <pre className='f3-xl ma3'><span className="b">{`સોલ્ડર : `}</span>{ShirtData === undefined ? "" : ShirtData.shoulder}</pre>
                 <pre className='f3-xl ma3'><span className="b">{`બાંય\t: `}</span>{ShirtData === undefined ? "" : ShirtData.sleeve}</pre>
