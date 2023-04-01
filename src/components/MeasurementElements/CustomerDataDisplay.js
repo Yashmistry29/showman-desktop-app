@@ -8,7 +8,7 @@ function CustomerDataDisplay({ data }) {
 				<pre>{`c_id\t\t: ${data.c_id === undefined ? "" : data.c_id}`}</pre>
 				<pre>{`Name\t: ${data.name === undefined ? "" : data.name}`}</pre>
 				<pre>{`Mobile\t: ${data.phone === undefined ? "" : data.phone}\t\tMobile 2: ${data.phone2 === undefined ? "" : data.phone2}`}</pre>
-				<pre>{`Address\t: ${data.place === undefined ? "" : data.place}`}</pre>
+				<pre>{`Address\t: ${data.address === undefined ? "" : data.address}`}</pre>
 			</fieldset>
 		</div>
 	)
