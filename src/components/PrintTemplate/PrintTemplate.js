@@ -7,7 +7,7 @@ function PrintTemplate({ jobData, customerData, ShirtData, PantData }) {
 
   return (
     <div id="printContainer">
-      <table className='ma3 w-95'>
+      <table className='mv3 mh0 w-100'>
         <tbody>
 
           <tr>

@@ -55,8 +55,8 @@ export default function Print() {
     html2canvas(document.querySelector("#printContainer"))
       .then(async (canvas) => {
         var printImg = canvas.toDataURL('image/png');
-        var pdf = new jsPDF('l', 'mm');
-        pdf.addImage(printImg, 'PNG', 75, 58, 220, 95, "PrintTemplate", "NONE");
+        var pdf = new jsPDF('p', 'mm');
+        pdf.addImage(printImg, 'PNG', 0, 5, 210, 95, "PrintTemplate", "NONE");
         const data = pdf.output('bloburl');
         const iframe = document.createElement('iframe');
         document.body.appendChild(iframe);
@@ -76,8 +76,8 @@ export default function Print() {
     html2canvas(document.querySelector("#printContainer"))
       .then(canvas => {
         var printImg = canvas.toDataURL('image/png');
-        var pdf = new jsPDF('l', 'mm');
-        pdf.addImage(printImg, 'PNG', 87, 60, 210, 90, "PrintTemplate", "NONE");
+        var pdf = new jsPDF('p', 'mm');
+        pdf.addImage(printImg, 'PNG', 0, 4, 210, 95, "PrintTemplate", "NONE");
         pdf.save(`${jobData.job_id}.pdf`)
       })
   }
