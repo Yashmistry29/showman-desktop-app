@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Avatar, Grid, Autocomplete } from '@mui/material'
+import { Avatar, Grid, Autocomplete, createFilterOptions } from '@mui/material'
 import { CreateCustomer } from '../utils/Data/InitialValues';
 import { ValidateCustomer } from '../utils/Validation/FormValidation';
 import { toast, ToastContainer } from 'react-toastify';
@@ -133,6 +133,10 @@ function Customer() {
               fullWidth
               size='small'
               onChange={handleAutocomplete}
+              filterOptions={createFilterOptions({
+                matchFrom: "start",
+                stringify: (option) => option.name
+              })}
               getOptionLabel={(option) => option.name}
               renderInput={(params) => <TextField
                 {...params}

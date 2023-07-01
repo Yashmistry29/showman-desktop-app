@@ -27,7 +27,7 @@ function Dashboard() {
       <div className='flex w-90 center mt4 table-border br2'>
         <Grid container direction="row" alignItems="center" justify="space-between" spacing={3}>
           <Grid item xs={12}>
-            <TableData data={data} setPage={setPage} page={page} />
+            <TableData data={data} setPage={setPage} page={page} setData={setData} />
           </Grid>
         </Grid>
       </div>

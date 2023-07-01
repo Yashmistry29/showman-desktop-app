@@ -11,48 +11,24 @@ import {
 } from '@mui/material';
 import { StyledTableCell as TableCell, StyledTableRow as TableRow } from '../FormElements/TableForms';
 import IconButton from '@mui/material/IconButton';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-// import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-// import { sendRequest } from '../../utils/Helpers/HelpersMethod'
-// import { toast, ToastContainer } from 'react-toastify';
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import CloseIcon from '@mui/icons-material/Close';
+import DoneIcon from '@mui/icons-material/Done';
+import { sendRequest } from '../../utils/Helpers/HelpersMethod'
+import { toast, ToastContainer } from 'react-toastify';
 const electron = window.require("electron");
 
 
 const CollapsibleRows = (props) => {
   // const ipcRenderer = electron.ipcRenderer();
-  const { CustomerData, data } = props;
+  const { CustomerData, data, handleDelete, index } = props;
   const [open, setOpen] = React.useState(false);
+  const [activateDelete, setActivateDelete] = React.useState(false);
 
   var createdAt = new Date(data.createdAt);
   var returnDate = new Date(data.returnDate);
-
-  // const handleDelete = (e, job_id, c_id) => {
-  //   sendRequest('/job/deletejob', 'POST', { job_id: job_id, c_id: c_id })
-  //     .then((res) => {
-  //       if (res.success) {
-  //         toast.success(res.message, {
-  //           position: "top-right",
-  //           autoClose: 2000,
-  //           hideProgressBar: false,
-  //           closeOnClick: true,
-  //           pauseOnHover: true,
-  //           draggable: false,
-  //           theme: "colored",
-  //         });
-  //       } else {
-  //         toast.error(res.message, {
-  //           position: "top-right",
-  //           autoClose: 2000,
-  //           hideProgressBar: false,
-  //           closeOnClick: true,
-  //           pauseOnHover: true,
-  //           draggable: false,
-  //           theme: "colored",
-  //         });
-  //       }
-  //     })
-  // }
 
   const HandleClick = () => {
     // console.log(data, CustomerData)
@@ -61,29 +37,35 @@ const CollapsibleRows = (props) => {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} onClick={() => setOpen(!open)}>
-        <TableCell>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} >
+        {/* <TableCell>
           <IconButton
             aria-label="expand row"
             size="small"
+            onClick={() => setOpen(!open)}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
-        </TableCell>
-        <TableCell>{data.job_id}</TableCell>
-        <TableCell>{CustomerData.c_id}</TableCell>
-        <TableCell>{CustomerData.name}</TableCell>
-        <TableCell>{CustomerData.phone}</TableCell>
-        <TableCell>{CustomerData.phone2}</TableCell>
-        <TableCell>{createdAt.toDateString()}</TableCell>
-        <TableCell>{returnDate.toDateString()}</TableCell>
-        <TableCell>{data.shirt_quantity}</TableCell>
-        <TableCell>{data.pant_quantity}</TableCell>
-        {/* <TableCell>
-          <IconButton className='deleteButton' onClick={(e) => handleDelete(e, data.job_id, CustomerData.c_id)}>
-            <RemoveCircleOutlineIcon />
-          </IconButton>
         </TableCell> */}
+        <TableCell onClick={() => setOpen(!open)}>{data.job_id}</TableCell>
+        <TableCell onClick={() => setOpen(!open)}>{CustomerData.c_id}</TableCell>
+        <TableCell onClick={() => setOpen(!open)}>{CustomerData.name}</TableCell>
+        <TableCell onClick={() => setOpen(!open)}>{CustomerData.phone}</TableCell>
+        <TableCell onClick={() => setOpen(!open)}>{CustomerData.phone2}</TableCell>
+        <TableCell onClick={() => setOpen(!open)}>{createdAt.toDateString()}</TableCell>
+        <TableCell onClick={() => setOpen(!open)}>{returnDate.toDateString()}</TableCell>
+        <TableCell onClick={() => setOpen(!open)}>{data.shirt_quantity}</TableCell>
+        <TableCell onClick={() => setOpen(!open)}>{data.pant_quantity}</TableCell>
+        <TableCell>
+          {activateDelete ?
+            <div className='pv1'>
+              <DoneIcon className='cancelButton' onClick={(e) => handleDelete(e, data.job_id, CustomerData.c_id, index)} />
+              <CloseIcon className='deleteButton' onClick={(e) => setActivateDelete(false)} />
+            </div>
+            :
+            <IconButton onClick={(e) => setActivateDelete(true)}><RemoveCircleOutlineIcon /></IconButton>
+          }
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={11}>
@@ -106,7 +88,7 @@ const CollapsibleRows = (props) => {
   )
 }
 
-function TableData({ data, page, setPage }) {
+function TableData({ data, page, setPage, setData }) {
 
   const [rowsPerPage, setRowsPerPage] = React.useState(8);
 
@@ -122,15 +104,48 @@ function TableData({ data, page, setPage }) {
     setPage(0);
   };
 
+  const handleDelete = (e, job_id, c_id, index) => {
+    JobData.splice(index, 1);
+    setData({
+      customerData: CustomerData,
+      jobData: JobData
+    });
+    sendRequest('/job/deletejob', 'POST', { job_id: job_id, c_id: c_id })
+      .then((res) => {
+        if (res.success) {
+          toast.info(res.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            theme: "colored",
+          });
+        } else {
+          toast.error(res.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            theme: "colored",
+          });
+        }
+      })
+  }
 
+
+  // console.log(data)
   return (
     <Paper >
-      {/* <ToastContainer /> */}
+      <ToastContainer />
       <TableContainer className='br2 font'>
         <Table stickyHeader aria-label="Collapsible table" size='small'>
           <TableHead>
             <TableRow>
-              <TableCell padding='checkbox' />
+              {/* <TableCell padding='checkbox' /> */}
               <TableCell>Job Id</TableCell>
               <TableCell>Customer Id</TableCell>
               <TableCell>Name</TableCell>
@@ -140,7 +155,7 @@ function TableData({ data, page, setPage }) {
               <TableCell>Return Date</TableCell>
               <TableCell>Shirts</TableCell>
               <TableCell>Pants</TableCell>
-              {/* <TableCell padding='checkbox' >Delete</TableCell> */}
+              <TableCell>Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -148,7 +163,7 @@ function TableData({ data, page, setPage }) {
               JobData.length === 0 ? null :
                 JobData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data, index) => {
                   index = index + (page * rowsPerPage)
-                  return (<CollapsibleRows CustomerData={CustomerData.length === 1 ? CustomerData[0] : CustomerData[index]} data={data} key={index} />)
+                  return (<CollapsibleRows CustomerData={CustomerData.length === 1 ? CustomerData[0] : CustomerData[index]} data={data} key={index} index={index} handleDelete={handleDelete} />)
                 })
             }
           </TableBody>

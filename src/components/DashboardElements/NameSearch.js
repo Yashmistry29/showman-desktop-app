@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { CssTextField } from '../FormElements/TextfieldForm';
 import { NameSearch as initialValues } from '../../utils/Data/InitialValues';
-import { Autocomplete } from '@mui/material';
+import { Autocomplete, createFilterOptions } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import { sendRequest } from '../../utils/Helpers/HelpersMethod';
 
@@ -104,6 +104,10 @@ function NameSearch({ data, setData, setPage }) {
                 }
               }}
               onChange={handleAutocomplete}
+              filterOptions={createFilterOptions({
+                matchFrom: "start",
+                stringify: (option) => option.name
+              })}
               getOptionLabel={(option) => option.name}
               renderInput={(params) => <CssTextField
                 {...params}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Autocomplete, MenuItem } from '@mui/material';
+import { Autocomplete, MenuItem, createFilterOptions } from '@mui/material';
 import { CssTextField } from '../FormElements/TextfieldForm';
 import { sendRequest } from "../../utils/Helpers/HelpersMethod";
 
@@ -103,6 +103,10 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
                   }
                 }
               }}
+              filterOptions={createFilterOptions({
+                matchFrom: "start",
+                stringify: (option) => option.name
+              })}
               getOptionLabel={(option) => option.name}
               renderInput={(params) => <CssTextField
                 {...params}
