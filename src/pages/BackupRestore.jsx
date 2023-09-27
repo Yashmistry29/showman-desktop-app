@@ -12,7 +12,7 @@ function BackupRestore() {
     sendRequest('/db/backup', 'POST')
       .then(async (result) => {
         const date = new Date();
-        const fileName = date.getDate() + '-' + date.getMonth() + 1 + '-' + date.getFullYear() + '.zip';
+        const fileName = date.getDate() + '-' + Number(date.getMonth() + 1) + '-' + date.getFullYear() + '.zip';
         zip.file('data.json', JSON.stringify(result.data));
         const content = await zip.generateAsync({ type: 'blob' });
         const url = window.URL.createObjectURL(content);
