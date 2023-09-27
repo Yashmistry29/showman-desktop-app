@@ -74,11 +74,8 @@ const CollapsibleRows = (props) => {
               <div className='flex justify-start'>
                 <button
                   className='button-border b--black f7-m link pointer tc ma2 bg-button white ba bw1 dim dib w3 w5-l w4-m pa2 br2'
-                >Print Receipt</button>
-                <button
-                  className='button-border b--black f7-m link pointer tc ma2 bg-button white ba bw1 dim dib w3 w5-l w4-m pa2 br2'
                   onClick={HandleClick}
-                >Show Job Details</button>
+                >Print Details</button>
               </div>
             </Box>
           </Collapse>

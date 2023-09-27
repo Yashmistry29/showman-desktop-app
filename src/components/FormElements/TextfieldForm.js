@@ -57,3 +57,15 @@ export const CssChildTextField = styled(TextField)({
     },
   },
 });
+
+export const MenuItemStyle = {
+  "& li": {
+    backgroundColor: "white",
+  },
+  "&:hover": {
+    backgroundColor: "#9966cb",
+  },
+  "&.Mui-focusVisible": {
+    backgroundColor: "#9966cb",
+  }
+}

@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
-import PrintTemplate from '../components/PrintTemplate/PrintTemplate';
+import PrintJobData from '../components/PrintTemplate/PrintJobDataTemplate';
+import PrintReceipt from '../components/PrintTemplate/PrintReceiptTemplate';
 import PrintIcon from '@mui/icons-material/Print';
 import SaveIcon from '@mui/icons-material/Save';
+import IosShareIcon from '@mui/icons-material/IosShare';
 import { jobData as InitialValues } from '../utils/Data/InitialValues'
 import '../styles/dashboard.scss';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { sendRequest } from '../utils/Helpers/HelpersMethod';
 import { useSearchParams } from 'react-router-dom';
-
+import { CssTextField, MenuItemStyle as MenuStyle } from '../components/FormElements/TextfieldForm';
+import { MenuItem } from '@mui/material';
 
 export default function Print() {
   const [queryParameters] = useSearchParams()
@@ -16,11 +19,11 @@ export default function Print() {
   const [PantData, setPantData] = React.useState({});
   const [ShirtData, setShirtData] = React.useState({});
   const [customerData, setCustomerData] = React.useState({});
+  const [receipt, setReceipt] = React.useState(false);
   const ids={
     job_id:Number(queryParameters.get("job_id")),
-    c_id:Number(queryParameters.get("c_id"))
+    c_id: Number(queryParameters.get("c_id")),
   }
-
 
   useEffect(()=>{
     sendRequest('/job/getJob','POST',{job_id:ids.job_id})
@@ -82,9 +85,13 @@ export default function Print() {
       })
   }
 
+  const handleSelect = (e) => {
+    setReceipt(e.target.value)
+  }
+
   return (
     <div className='mt3 center'>
-      <div className='flex justify-start ml4'>
+      <div className='flex justify-start ml4 w-50'>
         <PrintIcon
           className='button-border link pointer tc ma2 bg-white ba bw1 dib pa2 br2 b'
           titleAccess="Print Job"
@@ -95,8 +102,49 @@ export default function Print() {
           titleAccess="Save Job"
           onClick={HandleSave}
         />
+        <CssTextField
+          select
+          variant='outlined'
+          name='receipt'
+          className='w-50 ma2 pa1'
+          onChange={handleSelect}
+          value={receipt}
+          size="small"
+        >
+          <MenuItem key={0} sx={MenuStyle} value={false}>Print Job Data</MenuItem>
+          <MenuItem key={1} sx={MenuStyle} value={true}>Print Receipt</MenuItem>
+        </CssTextField>
+        {/* <FormControlLabel
+          control={
+            <Checkbox
+              // sx={{
+              //   color: grey[900],
+              //   '&.Mui-checked': {
+              //     color: grey[900],
+              //   },
+              // }}
+              checked={receipt}
+              name="receipt"
+              onChange={(e) => setReceipt(e.target.checked)}
+            />
+          }
+          label="Show Receipt"
+          className='black'
+        /> */}
+        {
+          receipt ?
+            <IosShareIcon
+              className='button-border link pointer tc ma2 bg-white ba bw1 dib pa2 br2 b'
+              titleAccess="Save Job"
+              onClick={HandleSave}
+            /> : ''
+        }
       </div>
-      <PrintTemplate jobData={jobData} customerData={customerData} ShirtData={ShirtData} PantData={PantData} />
+      {
+        receipt ?
+          <PrintReceipt jobData={jobData} customerData={customerData} ShirtData={ShirtData} PantData={PantData} /> :
+          <PrintJobData jobData={jobData} customerData={customerData} ShirtData={ShirtData} PantData={PantData} />
+      }
     </div>
   )
 }
