@@ -226,7 +226,7 @@ function Measurement() {
           <CssTextField
             name='createdAt'
             className='w-60'
-            value={jobData.createdAt.getDate() + '-' + jobData.createdAt.getMonth() + 1 + '-'
+            value={jobData.createdAt.getDate() + '-' + Number(jobData.createdAt.getMonth() + 1) + '-'
               + jobData.createdAt.getFullYear()}
             focused
             disabled
