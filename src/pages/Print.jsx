@@ -60,8 +60,7 @@ export default function Print() {
   // console.log(jobData, customerData, ShirtData, PantData)
   // console.log("ids",ids)
 
-  const HandlePrint = (type) => {
-    console.log(type)
+  const HandlePrint = () => {
     html2canvas(document.querySelector("#printContainer"))
       .then(async (canvas) => {
         var printImg = canvas.toDataURL('image/png');
@@ -83,7 +82,6 @@ export default function Print() {
   }
 
   const HandleSave = (type) => {
-    console.log(type)
     if (type === "Jobdata") {
       html2canvas(document.querySelector("#printContainer"))
         .then(canvas => {
@@ -114,7 +112,7 @@ export default function Print() {
         <PrintIcon
           className='button-border link pointer tc ma2 bg-white ba bw1 dib pa2 br2 b'
           titleAccess="Print Job"
-          onClick={() => { receipt ? HandlePrint("receipt") : HandlePrint("Jobdata") }}
+          onClick={HandlePrint}
         />
         <SaveIcon
           className='button-border link pointer tc ma2 bg-white ba bw1 dib pa2 br2 b'

@@ -24,7 +24,7 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
       })
   }, [jobData.pant_quantity, jobData.shirt_quantity])
 
-  console.log(advance)
+  // console.log(advance)
 
   return (
     <div id="printContainer" className='flex w-60-l w-90-m center'>
