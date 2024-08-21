@@ -1,7 +1,7 @@
 import React from 'react'
 // import { Table, TableBody, TableCell, TableRow, TableContainer, Box, Paper } from '@mui/material'
 
-function PrintTemplate({ jobData, customerData, ShirtData, PantData }) {
+function PrintTemplate({ jobData, customerData, ShirtData, PantData, receipt }) {
   const createdAt = new Date();
   const returnDate = new Date(jobData.returnDate);
 

@@ -90,6 +90,7 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
             <pre className='black pr2'>Enter Name  </pre>
             <Autocomplete
               // disablePortal
+              disableClearable
               options={names}
               fullWidth
               onChange={handleChange}

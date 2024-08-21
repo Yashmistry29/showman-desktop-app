@@ -72,6 +72,7 @@ function NameSearch({ data, setData, setPage }) {
       .then((res) => {
         if (res.success) {
           names.splice(0, names.length);
+
           setNames(names => [...names, ...res.data]);
         }
       })
@@ -89,6 +90,7 @@ function NameSearch({ data, setData, setPage }) {
           <div className='flex justify-start items-center'>
             <pre className='black pr2 font'>Enter Name  </pre>
             <Autocomplete
+              disableClearable
               freeSolo
               options={names}
               fullWidth

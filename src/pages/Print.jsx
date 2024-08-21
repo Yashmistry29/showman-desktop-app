@@ -3,7 +3,7 @@ import PrintJobData from '../components/PrintTemplate/PrintJobDataTemplate';
 import PrintReceipt from '../components/PrintTemplate/PrintReceiptTemplate';
 import PrintIcon from '@mui/icons-material/Print';
 import SaveIcon from '@mui/icons-material/Save';
-import IosShareIcon from '@mui/icons-material/IosShare';
+// import IosShareIcon from '@mui/icons-material/IosShare';
 import { jobData as InitialValues } from '../utils/Data/InitialValues'
 import '../styles/dashboard.scss';
 import html2canvas from 'html2canvas';
@@ -20,9 +20,15 @@ export default function Print() {
   const [ShirtData, setShirtData] = React.useState({});
   const [customerData, setCustomerData] = React.useState({});
   const [receipt, setReceipt] = React.useState(false);
+  const [advance, setAdvance] = React.useState(0);
   const ids={
     job_id:Number(queryParameters.get("job_id")),
     c_id: Number(queryParameters.get("c_id")),
+  }
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setAdvance(e.target.value);
   }
 
   useEffect(()=>{
@@ -54,7 +60,8 @@ export default function Print() {
   // console.log(jobData, customerData, ShirtData, PantData)
   // console.log("ids",ids)
 
-  const HandlePrint = () => {
+  const HandlePrint = (type) => {
+    console.log(type)
     html2canvas(document.querySelector("#printContainer"))
       .then(async (canvas) => {
         var printImg = canvas.toDataURL('image/png');
@@ -75,14 +82,26 @@ export default function Print() {
       })
   }
 
-  const HandleSave = () => {
-    html2canvas(document.querySelector("#printContainer"))
-      .then(canvas => {
-        var printImg = canvas.toDataURL('image/png');
-        var pdf = new jsPDF('p', 'mm');
-        pdf.addImage(printImg, 'PNG', 0, 4, 210, 95, "PrintTemplate", "NONE");
-        pdf.save(`${jobData.job_id}.pdf`)
-      })
+  const HandleSave = (type) => {
+    console.log(type)
+    if (type === "Jobdata") {
+      html2canvas(document.querySelector("#printContainer"))
+        .then(canvas => {
+          var printImg = canvas.toDataURL('image/png');
+          var pdf = new jsPDF('p', 'mm');
+          pdf.addImage(printImg, 'PNG', 0, 4, 210, 95, "PrintTemplate", "NONE");
+          pdf.save(`${jobData.job_id}.pdf`)
+        })
+    }
+    else {
+      html2canvas(document.querySelector("#printContainer"))
+        .then(canvas => {
+          var printImg = canvas.toDataURL('image/png');
+          var pdf = new jsPDF('p', 'mm');
+          pdf.addImage(printImg, 'PNG', 0, 4, 210, 95, "PrintTemplate", "NONE");
+          pdf.save(`Receipt ${jobData.job_id}.pdf`)
+        })
+    }
   }
 
   const handleSelect = (e) => {
@@ -91,16 +110,16 @@ export default function Print() {
 
   return (
     <div className='mt3 center'>
-      <div className='flex justify-start ml4 w-50'>
+      <div className='flex justify-start ml4 mv4 w-50'>
         <PrintIcon
           className='button-border link pointer tc ma2 bg-white ba bw1 dib pa2 br2 b'
           titleAccess="Print Job"
-          onClick={HandlePrint}
+          onClick={() => { receipt ? HandlePrint("receipt") : HandlePrint("Jobdata") }}
         />
         <SaveIcon
           className='button-border link pointer tc ma2 bg-white ba bw1 dib pa2 br2 b'
           titleAccess="Save Job"
-          onClick={HandleSave}
+          onClick={() => { receipt ? HandleSave("receipt") : HandleSave("Jobdata") }}
         />
         <CssTextField
           select
@@ -114,6 +133,20 @@ export default function Print() {
           <MenuItem key={0} sx={MenuStyle} value={false}>Print Job Data</MenuItem>
           <MenuItem key={1} sx={MenuStyle} value={true}>Print Receipt</MenuItem>
         </CssTextField>
+        {receipt ?
+          <div className='flex justify-start items-center ml3'>
+            <pre className='f4-xl b'>Enter Advance  </pre>
+            <CssTextField
+              variant='outlined'
+              name='advance'
+              value={advance}
+              type='number'
+              onChange={handleChange}
+              className='w-50'
+            />
+          </div> :
+          ''
+        }
         {/* <FormControlLabel
           control={
             <Checkbox
@@ -131,19 +164,19 @@ export default function Print() {
           label="Show Receipt"
           className='black'
         /> */}
-        {
+        {/* {
           receipt ?
             <IosShareIcon
               className='button-border link pointer tc ma2 bg-white ba bw1 dib pa2 br2 b'
               titleAccess="Save Job"
               onClick={HandleSave}
             /> : ''
-        }
+        } */}
       </div>
       {
         receipt ?
-          <PrintReceipt jobData={jobData} customerData={customerData} ShirtData={ShirtData} PantData={PantData} /> :
-          <PrintJobData jobData={jobData} customerData={customerData} ShirtData={ShirtData} PantData={PantData} />
+          <PrintReceipt jobData={jobData} customerData={customerData} ShirtData={ShirtData} PantData={PantData} receipt={receipt} advance={advance} /> :
+          <PrintJobData jobData={jobData} customerData={customerData} ShirtData={ShirtData} PantData={PantData} receipt={receipt} />
       }
     </div>
   )
