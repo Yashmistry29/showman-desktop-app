@@ -96,7 +96,7 @@ export default function Print() {
         .then(canvas => {
           var printImg = canvas.toDataURL('image/png');
           var pdf = new jsPDF('p', 'mm');
-          pdf.addImage(printImg, 'PNG', 0, 4, 210, 95, "PrintTemplate", "NONE");
+          pdf.addImage(printImg, 'PNG', 2, 4, 208, 95, "PrintTemplate", "NONE");
           pdf.save(`Receipt ${jobData.job_id}.pdf`)
         })
     }

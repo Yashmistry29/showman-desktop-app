@@ -16,8 +16,8 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
         const result = res.data;
         setPrice(result)
         setItemPrice({
-          shirt_price: jobData.pant_quantity * result.shirt_price,
-          pant_price: jobData.shirt_quantity * result.pant_price
+          shirt_price: jobData.shirt_quantity * result.shirt_price,
+          pant_price: jobData.pant_quantity * result.pant_price
         })
       }).catch((err) => {
         console.log(err);
@@ -27,13 +27,24 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
   // console.log(advance)
 
   return (
-    <div id="printContainer" className='flex w-60-l w-90-m center'>
-      <table className='mv3 mh w-100'>
+    <div
+      id="printContainer"
+      className='flex w-60-l w-90-m center'
+    >
+      <table className='mv3 mh2 w-100'>
         <tbody>
           <tr>
-            <td colSpan={6}>
-              <div className='font flex center'>
-                <pre className='f2 b center mv3'>Showman Tailors</pre>
+            <td rowSpan={7} colSpan={3}>
+              <div className='font flex flex-column items-center'>
+                <div className='tc mb6'>
+                  <p className='f1 b center mv0'>SHOWMAN</p>
+                  <p className='f4 ls b ml4 mv0'>TAILORS</p>
+                  <p className='mt2 mb0 b'>પેન્ટ શર્ટ સફારી સૂટ ના સ્પેશિયાલિસ્ટ </p>
+                </div>
+                <div className='tc m2'>
+                  <p className='mb0 b'>જુનગામ, મેઇન રોડ, ફોર્ટ સોનગઢ, જી. તાપી</p>
+                  <p className='mv0 f5-xl'>Contact: 9426876500, 9913176500</p>
+                </div>
               </div>
             </td>
           </tr>
@@ -60,43 +71,52 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
               <pre className='f4-xl b ma1'>Price</pre>
             </td>
             <td className='bg-black-40'>
-              <pre className='f4-xl b ma1'>Item Total</pre>
+              <pre className='f4-xl b ma1'>Q.Price</pre>
             </td>
           </tr>
           <tr>
             <td colSpan={3}>
-              <pre className='f4-xl b ma1'>{`\nPant\n\n`}</pre>
-              <pre className='f4-xl b ma1'>{`\n${ShirtData.shirt_type}\n\n`}</pre>
+              <pre className='f4-xl b ma1 pt2'>{`પેન્ટ\n\n`}</pre>
+              <pre className='f4-xl b ma1'>{`${ShirtData.shirt_type}\n\n`}</pre>
             </td>
             <td>
-              <pre className='f4-xl b ma1'>{`\n${jobData.pant_quantity}\n\n`}</pre>
-              <pre className='f4-xl b ma1'>{`\n${jobData.shirt_quantity}\n\n`}</pre>
+              <pre className='f4-xl b ma1'>{jobData.pant_quantity !== 0 ? `${jobData.pant_quantity}\n\n` : "-\n\n"}</pre>
+              <pre className='f4-xl b ma1'>{jobData.shirt_quantity !== 0 ? `${jobData.shirt_quantity}\n\n` : "-\n\n"}</pre>
             </td>
             <td>
-              <pre className='f4-xl b ma1'>{`\n${cprice.pant_price}\n\n`}</pre>
-              <pre className='f4-xl b ma1'>{`\n${cprice.shirt_price}\n\n`}</pre>
+              <pre className='f4-xl b ma1'>{jobData.pant_quantity !== 0 ? `${cprice.pant_price}\n\n` : '-\n\n'}</pre>
+              <pre className='f4-xl b ma1'>{jobData.shirt_quantity !== 0 ? `${cprice.shirt_price}\n\n` : '-\n\n'}</pre>
             </td>
             <td>
-              <pre className='f4-xl b ma1'>{`\n${Itemprice.pant_price}\n\n`}</pre>
-              <pre className='f4-xl b ma1'>{`\n${Itemprice.shirt_price}\n\n`}</pre>
+              <pre className='f4-xl b ma1'>{jobData.pant_quantity !== 0 ? `${Itemprice.pant_price}\n\n` : '-\n\n'}</pre>
+              <pre className='f4-xl b ma1'>{jobData.shirt_quantity !== 0 ? `${Itemprice.shirt_price}\n\n` : '-\n\n'}</pre>
             </td>
           </tr>
           <tr>
             <td colSpan={4} ></td>
             <td className='bg-black-40'>
-              <pre className='f4-xl b ma1'>Advance</pre>
+              <pre className='f5-xl b ma1'>Item Total</pre>
             </td>
             <td>
-              <pre className='f4-xl b ma1'>{advance}</pre>
+              <pre className='f5-xl b ma1'>{Itemprice.shirt_price + Itemprice.pant_price}</pre>
             </td>
           </tr>
           <tr>
             <td colSpan={4} ></td>
             <td className='bg-black-40'>
-              <pre className='f4-xl b ma1'>Total</pre>
+              <pre className='f5-xl b ma1'>Advance</pre>
             </td>
             <td>
-              <pre className='f4-xl b ma1'>{Itemprice.shirt_price + Itemprice.pant_price - advance}</pre>
+              <pre className='f5-xl b ma1'>{advance}</pre>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={4} ></td>
+            <td className='bg-black-40'>
+              <pre className='f5-xl b ma1'>Total</pre>
+            </td>
+            <td>
+              <pre className='f5-xl b ma1'>{Itemprice.shirt_price + Itemprice.pant_price - advance}</pre>
             </td>
           </tr>
           {/* <tr>
