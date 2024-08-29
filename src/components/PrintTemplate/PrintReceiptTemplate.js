@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { price } from '../../utils/Data/InitialValues';
+import mainlogo from "../../images/SM_Logo.png";
 import { sendRequest } from '../../utils/Helpers/HelpersMethod';
 
 function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, receipt, advance }) {
@@ -36,12 +37,15 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
           <tr>
             <td rowSpan={7} colSpan={3}>
               <div className='font flex flex-column items-center'>
-                <div className='tc mb6'>
+                <div className='tc'>
                   <p className='f1 b center mv0'>SHOWMAN</p>
                   <p className='f4 ls b ml4 mv0'>TAILORS</p>
                   <p className='mt2 mb0 b'>પેન્ટ શર્ટ સફારી સૂટ ના સ્પેશિયાલિસ્ટ </p>
                 </div>
-                <div className='tc m2'>
+                <div className="flex flex-column w-90 center tc pa2">
+                  <img src={mainlogo} alt="logo" className="w-100" />
+                </div>
+                <div className='tc mv1'>
                   <p className='mb0 b'>જુનગામ, મેઇન રોડ, ફોર્ટ સોનગઢ, જી. તાપી</p>
                   <p className='mv0 f5-xl'>Contact: 9426876500, 9913176500</p>
                 </div>
@@ -49,15 +53,10 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
             </td>
           </tr>
           <tr>
-            <td className="ph2" colSpan={3}>
-              <pre className='f4-xl b ma1'>{`નામ: ${customerData.name} (${customerData.c_id})`}</pre>
-              <pre className='f4-xl b ma1'>{`ગામ: ${customerData.address}`}</pre>
-              <pre className='f4-xl b ma1'>{`ફોન નં: ${customerData.phone}, ${customerData.phone2}`}</pre>
-            </td>
-            <td className="ph3" colSpan={3}>
-              <pre className='f4-xl mb1 b mt1'>{`Job No.:${jobData.job_id}`}</pre>
-              <pre className='f4-xl mb1 b mt1'>{`Job Date: ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}`}</pre>
-              <pre className='f4-xl mb1 b mt1'>{`Delivery: ${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}`}</pre>
+            <td className="ph2" colSpan={6}>
+              <pre className='f4-xl b ma1'>{`નામ: ${customerData.name} (${customerData.c_id})\tJob No.:${jobData.job_id}`}</pre>
+              <pre className='f4-xl b ma1'>{`ગામ: ${customerData.address}\t\tJob Date: ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}`}</pre>
+              <pre className='f4-xl b ma1'>{`ફોન નં: ${customerData.phone}, ${customerData.phone2}\tDelivery: ${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}`}</pre>
             </td>
           </tr>
           <tr>
