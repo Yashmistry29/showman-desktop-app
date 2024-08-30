@@ -12,9 +12,9 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
   })
 
   useEffect(() => {
-    sendRequest("/price/getprice", "POST")
+    sendRequest("/job/getCurrentJobPrice", "POST",{job_id:jobData.job_id})
       .then((res) => {
-        const result = res.data;
+        const result = res.message;
         setPrice(result)
         setItemPrice({
           shirt_price: jobData.shirt_quantity * result.shirt_price,
@@ -23,7 +23,7 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
       }).catch((err) => {
         console.log(err);
       })
-  }, [jobData.pant_quantity, jobData.shirt_quantity])
+  }, [jobData.job_id, jobData.pant_quantity, jobData.shirt_quantity])
 
   // console.log(advance)
 
@@ -54,9 +54,9 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
           </tr>
           <tr>
             <td className="ph2" colSpan={6}>
-              <pre className='f4-xl b ma1'>{`નામ: ${customerData.name} (${customerData.c_id})\tJob No.:${jobData.job_id}`}</pre>
-              <pre className='f4-xl b ma1'>{`ગામ: ${customerData.address}\t\tJob Date: ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}`}</pre>
-              <pre className='f4-xl b ma1'>{`ફોન નં: ${customerData.phone}, ${customerData.phone2}\tDelivery: ${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}`}</pre>
+              <pre className='f4-xl b ma1'>{`Job No.:${jobData.job_id}\tનામ: ${customerData.name} (${customerData.c_id})`}</pre>
+              <pre className='f4-xl b ma1'>{`Job Date: ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}\tગામ: ${customerData.address}`}</pre>
+              <pre className='f4-xl b ma1'>{`Delivery: ${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}\tફોન નં: ${customerData.phone}, ${customerData.phone2}`}</pre>
             </td>
           </tr>
           <tr>
