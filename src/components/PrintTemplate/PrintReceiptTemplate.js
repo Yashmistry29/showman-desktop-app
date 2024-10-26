@@ -74,9 +74,10 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
           <tr>
             <td rowSpan={4} colSpan={3} style={{ wordWrap: "break-word" }}>
               <div className='mv4 mh2'>
-                <p className='f4-xl ma1'><span className='b'>Name : </span>{customerData.name}</p>
-                <pre className='f4-xl ma1'><span className='b'>Job Id</span>{`\t: ${jobData.job_id}\t`}<span className='b'>Customer Id</span>{`\t: ${customerData.c_id}`}</pre>
-                <pre className='f4-xl ma1'><span className='b'>Address</span>{`\t: ${customerData.address}`}</pre>
+                <p className='f4-xl b ma1'>Name</p>
+                <p className='f4-xl ma1'>{`${customerData.name} (${customerData.c_id})`}</p>
+                <pre className='f4-xl ma1'><span className='b'>Address</span>{`\t: ${customerData.address} `}</pre>
+                <pre className='f4-xl ma1'><span className='b'>Job Id</span>{`\t: ${jobData.job_id}`}</pre>
                 <pre className='f4-xl ma1'><span className='b'>Mobile</span>{`\t: ${customerData.phone}, ${customerData.phone2}`}</pre>
               </div>
             </td>
@@ -87,13 +88,13 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
           <tr>
             <td rowSpan={3} colSpan={3}>
               <div className='tc mb0'>
-                <p className='mt2 b'>પેન્ટ શર્ટ સફારી સૂટ ના સ્પેશિયાલિસ્ટ</p>
-                <p className='mv0 b'>જુનગામ, મેઇન રોડ, ફોર્ટ સોનગઢ, જી. તાપી</p>
-                <p className='mv0 f5-xl'>Contact: 9426876500, 9913176500</p>
+                <p className='mt2 mb1 b'>પેન્ટ શર્ટ સફારી સૂટ ના સ્પેશિયાલિસ્ટ</p>
+                <p className='mv2 b'>જુનગામ, મેઇન રોડ, ફોર્ટ સોનગઢ, જી. તાપી</p>
+                <p className='mv1 f5-xl'>Contact: 9426876500, 9913176500</p>
               </div>
             </td>
             <td colSpan={2}>
-              <p className='f4-xl ma1'><span className='b'>Job Date:</span> {` ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}`}</p>
+              <pre className='f4-xl ma1'><span className='b'>Job Date</span> {`\t  : ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}`}</pre>
             </td>
             <td>
               <pre className='f5-xl b ma1'>Item Total</pre>
@@ -104,7 +105,7 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
           </tr>
           <tr>
             <td colSpan={2}>
-              <p className='f4-xl ma1'><span className='b'>Delivery Date:</span> {`${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}`}</p>
+              <pre className='f4-xl ma1'><span className='b'>Delivery Date</span> {`: ${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}`}</pre>
             </td>
             <td>
               <pre className='f5-xl b ma1'>Advance</pre>
