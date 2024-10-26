@@ -4,9 +4,7 @@ import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/
 import './index.css';
 import App from './App';
 
-// StylesProvider
-
-const ShowmanTheme = createTheme({
+const customTheme = createTheme({
   palette: {
     primary: {
       main: '#265CFF',
@@ -29,19 +27,20 @@ const ShowmanTheme = createTheme({
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(',')
+    ].join(','),
+    // Add responsive typography if needed
   }
-})
+});
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
 root.render(
-  /*<React.StrictMode>*/
-  <StyledEngineProvider injectFirst>
-    <ThemeProvider theme={ShowmanTheme}>
-      <App />
-    </ThemeProvider>
-  </StyledEngineProvider>
-  /*	</React.StrictMode>*/
+  <React.StrictMode>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={customTheme}>
+        <App />
+      </ThemeProvider>
+    </StyledEngineProvider>
+  </React.StrictMode>
 );
