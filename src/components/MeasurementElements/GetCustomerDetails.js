@@ -3,7 +3,7 @@ import { Autocomplete, MenuItem, createFilterOptions } from '@mui/material';
 import { CssTextField } from '../FormElements/TextfieldForm';
 import { sendRequest } from "../../utils/Helpers/HelpersMethod";
 
-function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerData, id, sQuantity, pQuantity, initial }) {
+function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerData, id, sQuantity, pQuantity, initial, setView }) {
 
   const [jobSelect, setJobSelect] = useState(false);
   const [jobIds, setJobIds] = useState([]);
@@ -67,9 +67,10 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
         if (res.success) {
           console.log(res.data)
           setCustomerData(res.data);
+          setView(true)
         }
       })
-  }, [id, setCustomerData])
+  }, [id, setCustomerData, setView])
 
   useEffect(() => {
     sendRequest("/customer/getnamelist", 'POST')

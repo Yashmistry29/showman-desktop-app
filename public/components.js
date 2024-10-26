@@ -64,7 +64,7 @@ const MenuTemplate = [
         accelerator: "CmdOrCtrl+J",
         click: () => {
           childWindow = new BrowserWindow({ parent: mainWindow, show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
-          childWindow.setMenu(null);
+          // childWindow.setMenu(null);
           isDev ?
             childWindow.loadURL('http://localhost:3000/#/measurement') :
             childWindow.loadFile(`${path.join(__dirname, 'index.html')}`, { hash: '/measurement' });
