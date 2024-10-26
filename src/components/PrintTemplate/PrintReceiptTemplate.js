@@ -51,7 +51,7 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
             <td>
               <p className='f4-xl b ma1'>Q.Price</p>
             </td>
-            {/* <td rowSpan={9}></td> */}
+            <td rowSpan={9}></td>
           </tr>
           <tr>
             <td rowSpan={4} colSpan={1} style={{ wordWrap: "break-word" }}>
@@ -74,7 +74,7 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
           <tr>
             <td rowSpan={4} colSpan={3} style={{ wordWrap: "break-word" }}>
               <div className='mv4 mh2'>
-                <p className='f4-xl ma1'>{customerData.name}</p>
+                <p className='f4-xl ma1'><span className='b'>Name : </span>{customerData.name}</p>
                 <pre className='f4-xl ma1'><span className='b'>Job Id</span>{`\t: ${jobData.job_id}\t`}<span className='b'>Customer Id</span>{`\t: ${customerData.c_id}`}</pre>
                 <pre className='f4-xl ma1'><span className='b'>Address</span>{`\t: ${customerData.address}`}</pre>
                 <pre className='f4-xl ma1'><span className='b'>Mobile</span>{`\t: ${customerData.phone}, ${customerData.phone2}`}</pre>

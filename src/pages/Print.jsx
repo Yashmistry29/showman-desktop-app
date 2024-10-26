@@ -60,12 +60,12 @@ export default function Print() {
   // console.log(jobData, customerData, ShirtData, PantData)
   // console.log("ids",ids)
 
-  const HandlePrint = () => {
+  const HandlePrint = (type) => {
     html2canvas(document.querySelector("#printContainer"))
       .then(async (canvas) => {
         var printImg = canvas.toDataURL('image/png');
         var pdf = new jsPDF('p', 'mm');
-        pdf.addImage(printImg, 'PNG', 0, 5, 210, 95, "PrintTemplate", "NONE");
+        type === 'Jobdata' ? pdf.addImage(printImg, 'PNG', 0, 5, 210, 95, "PrintTemplate", "NONE") : pdf.addImage(printImg, 'PNG', 4, 4, 190, 86, "PrintTemplate", "NONE");
         const data = pdf.output('bloburl');
         const iframe = document.createElement('iframe');
         document.body.appendChild(iframe);
