@@ -112,7 +112,7 @@ export default function Print() {
         <PrintIcon
           className='button-border link pointer tc ma2 bg-white ba bw1 dib pa2 br2 b'
           titleAccess="Print Job"
-          onClick={HandlePrint}
+          onClick={()=>{receipt ? HandlePrint("receipt") : HandlePrint("Jobdata")}}
         />
         <SaveIcon
           className='button-border link pointer tc ma2 bg-white ba bw1 dib pa2 br2 b'
