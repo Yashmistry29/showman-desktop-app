@@ -60,12 +60,12 @@ export default function Print() {
   // console.log(jobData, customerData, ShirtData, PantData)
   // console.log("ids",ids)
 
-  const HandlePrint = () => {
+  const HandlePrint = (type) => {
     html2canvas(document.querySelector("#printContainer"))
       .then(async (canvas) => {
         var printImg = canvas.toDataURL('image/png');
         var pdf = new jsPDF('p', 'mm');
-        pdf.addImage(printImg, 'PNG', 0, 5, 210, 95, "PrintTemplate", "NONE");
+        type === 'Jobdata' ? pdf.addImage(printImg, 'PNG', 0, 5, 210, 95, "PrintTemplate", "NONE") : pdf.addImage(printImg, 'PNG', 4, 4, 202, 95, "PrintTemplate", "NONE");
         const data = pdf.output('bloburl');
         const iframe = document.createElement('iframe');
         document.body.appendChild(iframe);
@@ -96,7 +96,7 @@ export default function Print() {
         .then(canvas => {
           var printImg = canvas.toDataURL('image/png');
           var pdf = new jsPDF('p', 'mm');
-          pdf.addImage(printImg, 'PNG', 2, 4, 208, 95, "PrintTemplate", "NONE");
+          pdf.addImage(printImg, 'PNG', 2, 4, 190, 86, "PrintTemplate", "NONE");
           pdf.save(`Receipt ${jobData.job_id}.pdf`)
         })
     }
@@ -112,7 +112,7 @@ export default function Print() {
         <PrintIcon
           className='button-border link pointer tc ma2 bg-white ba bw1 dib pa2 br2 b'
           titleAccess="Print Job"
-          onClick={HandlePrint}
+          onClick={()=>{receipt ? HandlePrint("receipt") : HandlePrint("Jobdata")}}
         />
         <SaveIcon
           className='button-border link pointer tc ma2 bg-white ba bw1 dib pa2 br2 b'

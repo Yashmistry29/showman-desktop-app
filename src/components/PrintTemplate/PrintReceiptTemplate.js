@@ -10,7 +10,7 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
   })
 
   useEffect(() => {
-    sendRequest("/job/getCurrentJobPrice", "POST",{job_id:jobData.job_id})
+    sendRequest("/job/getCurrentJobPrice", "POST", { job_id: jobData.job_id })
       .then((res) => {
         const result = res.message;
         setPrice(result)
@@ -33,13 +33,13 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
       <table className='mv3 mh2 w-100 font'>
         <tbody>
           <tr>
-            <td rowSpan={2} colSpan={4}>
+            <td rowSpan={2} colSpan={3}>
               <div className='tc font'>
                 <p className='f1 ls-header center mv0'>SHOWMAN</p>
                 <p className='f4 ls ml4 mv0'>TAILORS</p>
               </div>
             </td>
-            <td colSpan={2}>
+            <td colSpan={1}>
               <p className='f4-xl b ma1'>Description</p>
             </td>
             <td>
@@ -51,164 +51,78 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
             <td>
               <p className='f4-xl b ma1'>Q.Price</p>
             </td>
+            <td rowSpan={9}></td>
           </tr>
           <tr>
-            <td rowSpan={5} colSpan={2}>
-              <pre className='f4-xl b ma1 pt2'>{`પેન્ટ\n\n\n\n`}</pre>
-              <pre className='f4-xl b ma1'>{`${ShirtData.shirt_type}\n\n\n\n`}</pre>
+            <td rowSpan={4} colSpan={1} style={{ wordWrap: "break-word" }}>
+              <p className='f4-xl b pb4 pl1 mt0'>{`પેન્ટ`}</p>
+              <p className='f4-xl b pb4 pl1 mt0'>{`${ShirtData.shirt_type}`}</p> 
             </td>
-            <td rowSpan={5}>
-              <pre className='f4-xl ma1'>{jobData.pant_quantity !== 0 ? `${jobData.pant_quantity}\n\n\n\n` : "-\n\n\n\n"}</pre>
-              <pre className='f4-xl ma1'>{jobData.shirt_quantity !== 0 ? `${jobData.shirt_quantity}\n\n\n\n` : "-\n\n\n\n"}</pre>
+            <td rowSpan={4}>
+              <p className='f4-xl pb4 pl3 mt0'>{jobData.pant_quantity !== 0 ? `${jobData.pant_quantity}` : "-"}</p>
+              <p className='f4-xl pb4 pl3 mt0'>{jobData.shirt_quantity !== 0 ? `${jobData.shirt_quantity}` : "-"}</p>
             </td>
-            <td rowSpan={5}>
-              <pre className='f4-xl ma1'>{jobData.pant_quantity !== 0 ? `${cprice.pant_price}\n\n\n\n` : '-\n\n\n\n'}</pre>
-              <pre className='f4-xl ma1'>{jobData.shirt_quantity !== 0 ? `${cprice.shirt_price}\n\n\n\n` : '-\n\n\n\n'}</pre>
+            <td rowSpan={4}>
+              <p className='f4-xl pb4 pl3 mt0'>{jobData.pant_quantity !== 0 ? `${cprice.pant_price}` : '-'}</p>
+              <p className='f4-xl pb4 pl3 mt0'>{jobData.shirt_quantity !== 0 ? `${cprice.shirt_price}` : '-'}</p>
             </td>
-            <td rowSpan={5}>
-              <pre className='f4-xl ma1'>{jobData.pant_quantity !== 0 ? `${Itemprice.pant_price}\n\n\n\n` : '-\n\n\n\n'}</pre>
-              <pre className='f4-xl ma1'>{jobData.shirt_quantity !== 0 ? `${Itemprice.shirt_price}\n\n\n\n` : '-\n\n\n\n'}</pre>
+            <td rowSpan={4}>
+              <p className='f4-xl pb4 pl3 mt0'>{jobData.pant_quantity !== 0 ? `${Itemprice.pant_price}` : '-'}</p>
+              <p className='f4-xl pb4 pl3 mt0'>{jobData.shirt_quantity !== 0 ? `${Itemprice.shirt_price}` : '-'}</p>
             </td>
           </tr>
           <tr>
-            <td rowSpan={4} colSpan={4}>
+            <td rowSpan={4} colSpan={3} style={{ wordWrap: "break-word" }}>
               <div className='mv4 mh2'>
-                <pre className='f5-xl ma1'><span className='b'>Job Id</span>{`\t: ${jobData.job_id}\t\t`}<span className='b'>Customer Id</span>{`\t: ${customerData.c_id}`}</pre>
-                <pre className='f5-xl ma1'><span className='b'>Name</span>{`\t: ${customerData.name}`}</pre>
-                <pre className='f5-xl ma1'><span className='b'>Address</span>{`\t: ${customerData.address}`}</pre>
-                <pre className='f5-xl ma1'><span className='b'>Mobile</span>{`\t: ${customerData.phone}, ${customerData.phone2}`}</pre>
+                <p className='f4-xl b ma1'>Name</p>
+                <p className='f4-xl ma1'>{`${customerData.name} (${customerData.c_id})`}</p>
+                <pre className='f4-xl ma1'><span className='b'>Address</span>{`\t: ${customerData.address} `}</pre>
+                <pre className='f4-xl ma1'><span className='b'>Job Id</span>{`\t: ${jobData.job_id}`}</pre>
+                <pre className='f4-xl ma1'><span className='b'>Mobile</span>{`\t: ${customerData.phone}, ${customerData.phone2}`}</pre>
               </div>
-              {/* <div className='tc mb0 mt2'>
-                <p className='mb0 b'>જુનગામ, મેઇન રોડ, ફોર્ટ સોનગઢ, જી. તાપી</p>
-                <p className='mv0 f5-xl'>Contact: 9426876500, 9913176500</p>
-                </div> */}
             </td>
           </tr>
           <tr></tr>
           <tr></tr>
           <tr></tr>
           <tr>
-            <td rowSpan={3} colSpan={4}>
+            <td rowSpan={3} colSpan={3}>
               <div className='tc mb0'>
-                <p className='mt2 b'>પેન્ટ શર્ટ સફારી સૂટ ના સ્પેશિયાલિસ્ટ</p>
-                <p className='mv0 b'>જુનગામ, મેઇન રોડ, ફોર્ટ સોનગઢ, જી. તાપી</p>
-                <p className='mv0 f5-xl'>Contact: 9426876500, 9913176500</p>
+                <p className='mt2 mb1 b'>પેન્ટ શર્ટ સફારી સૂટ ના સ્પેશિયાલિસ્ટ</p>
+                <p className='mv2 b'>જુનગામ, મેઇન રોડ, ફોર્ટ સોનગઢ, જી. તાપી</p>
+                <p className='mv1 f5-xl'>Contact: 9426876500, 9913176500</p>
               </div>
             </td>
-            <td colSpan={3}>
-              <p className='f4-xl ma1'><span className='b'>Job Date:</span> {` ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}`}</p>
+            <td colSpan={2}>
+              <pre className='f4-xl ma1'><span className='b'>Job Date</span> {`\t  : ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}`}</pre>
             </td>
             <td>
               <pre className='f5-xl b ma1'>Item Total</pre>
             </td>
             <td>
-              <pre className='f5-xl ma1'>{Itemprice.shirt_price + Itemprice.pant_price}</pre>
+              <pre className='f5-xl pl2 mv0'>{Itemprice.shirt_price + Itemprice.pant_price}</pre>
             </td>
           </tr>
           <tr>
-            <td colSpan={3}>
-              <p className='f4-xl ma1'><span className='b'>Delivery Date:</span> {`${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}`}</p>
+            <td colSpan={2}>
+              <pre className='f4-xl ma1'><span className='b'>Delivery Date</span> {`: ${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}`}</pre>
             </td>
             <td>
               <pre className='f5-xl b ma1'>Advance</pre>
             </td>
             <td>
-              <pre className='f5-xl ma1'>{advance}</pre>
+              <pre className='f5-xl pl2 mv0'>{advance}</pre>
             </td>
           </tr>
           <tr>
-            <td colSpan={3}></td>
+            <td colSpan={2}></td>
             <td>
               <pre className='f5-xl b ma1'>Total</pre>
             </td>
             <td>
-              <pre className='f5-xl ma1'>{Itemprice.shirt_price + Itemprice.pant_price - advance}</pre>
+              <pre className='f5-xl pl2 mv0'>{Itemprice.shirt_price + Itemprice.pant_price - advance}</pre>
             </td>
           </tr>
-          {/* <tr>
-          <td colSpan={3} rowSpan={7}>
-            <div className='font flex flex-column items-center'>
-            <div className='tc font'>
-              <p className='f1 center mv0'>SHOWMAN</p>
-              <p className='f4 ls ml4 mv0'>TAILORS</p>
-              <p className='mt2 mb0 b'>પેન્ટ શર્ટ સફારી સૂટ ના સ્પેશિયાલિસ્ટ</p>
-                </div>
-            <div className='mv4 mh2'>
-              <p className='f4-xl ma1 tl'><span className='b'>Name: </span>{`${customerData.name} (${customerData.c_id})`}</p>
-              <pre className='f4-xl ma1'>{`Job No.:${jobData.job_id}નામ: ${customerData.name} (${customerData.c_id})`}</pre>
-              <pre className='f4-xl ma1'>{`ગામ: ${customerData.address}`}</pre>
-              <pre className='f4-xl ma1'>{`ફોન નં: ${customerData.phone}, ${customerData.phone2}`}</pre>
-                </div>
-                <div className='tc mv1'>
-                  <p className='mb0 b'>જુનગામ, મેઇન રોડ, ફોર્ટ સોનગઢ, જી. તાપી</p>
-                  <p className='mv0 f5-xl'>Contact: 9426876500, 9913176500</p>
-                </div>
-          </div>
-            </td>
-          </tr>
-          <tr>
-        <td colSpan={2}>
-          <p className='f4-xl b ma1'>Description</p>
-            </td>
-        <td>
-          <p className='f4-xl b ma1'>Quantity</p>
-            </td>
-        <td>
-          <p className='f4-xl b ma1'>Price</p>
-            </td>
-        <td>
-          <p className='f4-xl b ma1'>Q.Price</p>
-            </td>
-          </tr>
-          <tr>
-        <td colSpan={2}>
-              <pre className='f4-xl b ma1 pt2'>{`પેન્ટ\n\n`}</pre>
-              <pre className='f4-xl b ma1'>{`${ShirtData.shirt_type}\n\n`}</pre>
-            </td>
-            <td>
-          <pre className='f4-xl ma1'>{jobData.pant_quantity !== 0 ? `${jobData.pant_quantity}\n\n` : "-\n\n"}</pre>
-            <pre className='f4-xl ma1'>{jobData.shirt_quantity !== 0 ? `${jobData.shirt_quantity}\n\n` : "-\n\n"}</pre>
-            </td>
-            <td>
-            <pre className='f4-xl ma1'>{jobData.pant_quantity !== 0 ? `${cprice.pant_price}\n\n` : '-\n\n'}</pre>
-            <pre className='f4-xl ma1'>{jobData.shirt_quantity !== 0 ? `${cprice.shirt_price}\n\n` : '-\n\n'}</pre>
-            </td>
-            <td>
-            <pre className='f4-xl ma1'>{jobData.pant_quantity !== 0 ? `${Itemprice.pant_price}\n\n` : '-\n\n'}</pre>
-            <pre className='f4-xl ma1'>{jobData.shirt_quantity !== 0 ? `${Itemprice.shirt_price}\n\n` : '-\n\n'}</pre>
-            </td>
-          </tr>
-          <tr>
-          <td colSpan={3} >
-            <p className='f4-xl ma1'><span className='b'>Job Date:</span> {` ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}`}</p>
-          </td>
-          <td>
-              <pre className='f5-xl b ma1'>Item Total</pre>
-            </td>
-            <td>
-              <pre className='f5-xl b ma1'>{Itemprice.shirt_price + Itemprice.pant_price}</pre>
-            </td>
-          </tr>
-          <tr>
-          <td colSpan={3} >
-            <p className='f4-xl ma1'><span className='b'>Delivery Date:</span> {`${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}`}</p>
-          </td>
-          <td>
-              <pre className='f5-xl b ma1'>Advance</pre>
-            </td>
-            <td>
-              <pre className='f5-xl b ma1'>{advance}</pre>
-            </td>
-          </tr>
-          <tr>
-          <td colSpan={3}></td>
-          <td>
-              <pre className='f5-xl b ma1'>Total</pre>
-            </td>
-            <td>
-              <pre className='f5-xl b ma1'>{Itemprice.shirt_price + Itemprice.pant_price - advance}</pre>
-          </td>
-          </tr> */}
         </tbody>
       </table>
 

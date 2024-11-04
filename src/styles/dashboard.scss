@@ -1,32 +1,39 @@
-.button-border{
+.button-border {
   box-shadow: 1px 1px 3px #000;
 }
 
-.table-border{
+.table-border {
   box-shadow: 3px 3px 5px rgb(112, 112, 112);
 }
 
-.deleteButton:hover{
+.deleteButton:hover {
   color: rgb(255, 0, 0);
 }
 
-.cancelButton:hover{
+.cancelButton:hover {
   color: rgb(1, 179, 1);
 }
 
-.font{
-  p,pre,tr,td,legend,label{
+.font {
+
+  p,
+  pre,
+  tr,
+  td,
+  legend,
+  label {
     font-family: 'Lexend Deca', sans-serif;
   }
-  th{
+
+  th {
     font-family: 'Lexend Deca', sans-serif;
     font-weight: bold;
   }
 }
 
-.f3-xl{
-    font-size: 1.8em;
-    letter-spacing: 1px;
+.f3-xl {
+  font-size: 1.8em;
+  letter-spacing: 1px;
 }
 
 .f3-xl-logo {
@@ -38,13 +45,14 @@
   margin-bottom: 7rem;
 }
 
+.ls-header {
+  letter-spacing: 0.75rem;
+}
+
 .ls {
   letter-spacing: 2rem;
-  }
-  
-  .ls-header {
-    letter-spacing: 0.5rem;
 }
+
 .f4-xl {
   font-size: 1em;
 }
@@ -52,56 +60,75 @@
 .f5-xl {
   font-size: 0.9em;
 }
-.w-95{
+
+.w-95 {
   width: 98%;
 }
 
-.font1{
-  p,pre,tr,td,legend,label{
+.font1 {
+
+  p,
+  pre,
+  tr,
+  td,
+  legend,
+  label {
     font-family: 'Azeret Mono', monospace;
     font-weight: 400;
   }
-  th{
+
+  th {
     font-family: 'Azeret Mono', monospace;
     font-weight: 400;
   }
+
   // letter-spacing: 1px;
 }
 
-.font2{
-  p,pre,tr,td,legend,label{
+.font2 {
+
+  p,
+  pre,
+  tr,
+  td,
+  legend,
+  label {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
   }
-  th{
+
+  th {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
   }
+
   // letter-spacing: 1px;
 }
 
-#printContainer{
+#printContainer {
   background-color: white;
-  table{
+
+  table {
     border: 1px solid black;
     border-collapse: collapse;
     border-style: solid;
     table-layout: fixed;
   }
-  td{
+
+  td {
     border: 1px solid black;
     word-wrap: break-word;
   }
 }
 
-.bg-button{
-  background-color: #784b84 ;
+.bg-button {
+  background-color: #784b84;
 }
 
-.btn-text{
-  color: #7c4700 ;
+.btn-text {
+  color: #7c4700;
 }
 
-.b--dashed-color{
+.b--dashed-color {
   border-color: #311432;
 }
