@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Grid, Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import { sendRequest } from "../utils/Helpers/HelpersMethod";
 import CustomerDataDisplay from '../components/MeasurementElements/CustomerDataDisplay';
 import GetCustomerDetails from '../components/MeasurementElements/GetCustomerDetails';
-import { checked } from '../utils/Data/InitialValues';
-import { grey } from '@mui/material/colors';
 import CustomerMeasurement from '../components/MeasurementElements/CustomerMeasurement';
 import { CssTextField } from '../components/FormElements/TextfieldForm';
-import { validateShirtData, validatePantData, validateDate } from '../utils/Validation/FormValidation';
+import { validateShirtData, validatePantData, validateDate, ValidateCustomer } from '../utils/Validation/FormValidation';
+import { jobData, CreateCustomer as c_data, checked as initialChecked } from '../utils/Data/InitialValues';
+import { grey } from '@mui/material/colors';
 import { toast, ToastContainer } from 'react-toastify';
-import { jobData, CreateCustomer as c_data } from '../utils/Data/InitialValues';
 import '../styles/dashboard.scss';
 const electron = window.require("electron");
 
@@ -17,21 +16,19 @@ function Measurement() {
 
   const [id, setId] = useState(0);
   const [jobId, setJobId] = useState(0);
-  const [sErrors, setsErrors] = useState({});
-  const [pErrors, setpErrors] = useState({});
-  const [dateError, setDateError] = useState({});
+  const [selectjobId, setselectJobId] = useState(0);
+  const [errors, setErrors] = useState({ shirt: {}, pant: {}, date: {}, customer: {} });
   const [customerData, setCustomerData] = useState(c_data);
-  const [checkedData, setCheckedData] = useState(checked);
-  const [sQuantity, setSQuantity] = useState(jobData.shirt_quantity);
-  const [pQuantity, setPQuantity] = useState(jobData.pant_quantity);
+  const [checkedData, setCheckedData] = useState(initialChecked);
+  const [quantities, setQuantities] = useState({ shirt: jobData.shirt_quantity, pant: jobData.pant_quantity });
   const [returnDate, setReturnDate] = useState(jobData.returnDate)
   const [sData, setSData] = useState(jobData.shirt_data);
   const [pData, setPData] = useState(jobData.pant_data);
   const [view, setView] = useState(false);
   const [update, setUpdate] = useState(false);
-  const [totalPrice,setTotalPrice]=useState(0);
-  const resetData = jobData;
-  const resetChecked = checked;
+  const [names, setNames] = useState([]);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+
 
   useEffect(() => {
     sendRequest("/price/getprice", "POST")
@@ -45,141 +42,174 @@ function Measurement() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleChange = (e) => {
-    const { name, checked } = e.target;
-    setCheckedData({ ...checkedData, [name]: checked });
+  const loadCustomerNames = async () => {
+    const res = await sendRequest("/customer/getnamelist", 'POST');
+    if (res.success) setNames(res.data);
   }
-
-  useEffect(()=>{
-    var total=0
-    if (checkedData.pant) {
-      total += Number(pData.price) * pQuantity;
-    }
-    if (checkedData.shirt) {
-      total += Number(sData.price) * sQuantity;
-    }
-    setTotalPrice(total);
-  },[checkedData.pant, checkedData.shirt, pData.price, pQuantity, sData.price, sQuantity])
-
 
   useEffect(() => {
-    if (!checkedData.pant) {
-      setPQuantity(0);
-    }
-    if (checkedData.pant) {
-      setPQuantity(1);
-    }
+    loadCustomerNames();
+  }, [])
 
-    if (!checkedData.shirt) {
-      setSQuantity(0);
-    }
-    if (checkedData.shirt) {
-      setSQuantity(1);
-    }
+  const totalPrice = useMemo(() => {
+    let total = 0;
+    if (checkedData.pant) total += Number(pData.price) * quantities.pant;
+    if (checkedData.shirt) total += Number(sData.price) * quantities.shirt;
+    return total;
+  }, [checkedData.pant, checkedData.shirt, pData.price, quantities.pant, quantities.shirt, sData.price]);
+
+  useEffect(() => {
+    setQuantities((prev) => ({
+      shirt: checkedData.shirt ? 1 : 0,
+      pant: checkedData.pant ? 1 : 0,
+    }));
   }, [checkedData.pant, checkedData.shirt])
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    var data = {
-      job_id: jobId,
-      shirt_quantity: sQuantity,
-      pant_quantity: pQuantity,
-      createdAt: new Date(jobData.createdAt),
-      returnDate: new Date(returnDate),
-      totalPrice: 0
-    }
-    var panterrors, shirterrors;
-    var isValidPant, isValidShirt;
-    if (checkedData.pant) {
-      panterrors = validatePantData(pData);
-      isValidPant = Object.keys(panterrors).length === 0;
-      setpErrors(panterrors);
-      data.totalPrice += Number(pData.price) * data.pant_quantity;
-      data["pant_data"] = pData;
-    }
-    if (checkedData.shirt) {
-      shirterrors = validateShirtData(sData);
-      isValidShirt = Object.keys(shirterrors).length === 0;
-      setsErrors(shirterrors);
-      data.totalPrice += Number(sData.price) * data.shirt_quantity;
-      data["shirt_data"] = sData;
-    }
-    setTotalPrice(data.totalPrice);  
-    var dateerrors = validateDate(data.createdAt, data.returnDate);
-    var isValidDate = Object.keys(dateerrors).length === 0;
-    setDateError(dateerrors);
-    console.log(data, isValidPant, isValidShirt, isValidDate);
-    // if ((isValidPant || isValidShirt) && isValidDate) {
-    //   const route = update ? '/job/updateJob' : '/job/createJob';
-    //   console.log(route);
-    //   sendRequest(route, 'POST', { c_id: id, jobData: data })
-    //     .then((res) => {
-    //       if (res.success) {
-    //         toast.success(res.message, {
-    //           position: "top-right",
-    //           autoClose: 2000,
-    //           hideProgressBar: false,
-    //           closeOnClick: true,
-    //           pauseOnHover: true,
-    //           draggable: false,
-    //           theme: "colored",
-    //         });
-    //       } else {
-    //         toast.error(res.message, {
-    //           position: "top-right",
-    //           autoClose: 2000,
-    //           hideProgressBar: false,
-    //           closeOnClick: true,
-    //           pauseOnHover: true,
-    //           draggable: false,
-    //           theme: "colored",
-    //         });
-    //       }
-    //       handleReset();
-    //       electron.ipcRenderer.send('jobDetails', ({ job_id:data.job_id, c_id: customerData.c_id }));
-    //     })
-    // }
-  }
+  useEffect(() => {
+    sendRequest("/job/getid", "POST")
+      .then((res) => res.success && setJobId(res.message))
+      .catch((err) => console.error(err));
+  }, [jobId])
+
+  const handleChange = (e) => {
+    setCheckedData((prev) => ({ ...prev, [e.target.name]: e.target.checked }));
+  };
 
   const handleDateChange = (e) => {
     setReturnDate(e.target.value);
   }
 
-  const handleReset = (e) => {
-    setCheckedData({ ...resetChecked });
-    setSQuantity(resetData.shirt_quantity);
-    setPQuantity(resetData.pant_quantity);
-    setSData({ ...resetData.shirt_data });
-    setPData({ ...resetData.pant_data });
-    setReturnDate(jobData.returnDate);
-    setpErrors({});
-    setsErrors({});
-    setCustomerData(c_data);
-    setId(0)
-    setJobId(0);
-    setView(false)
+  const prepareJobData = () => {
+    return {
+      job_id: jobId,
+      shirt_quantity: quantities.shirt,
+      pant_quantity: quantities.pant,
+      createdAt: new Date(jobData.createdAt),
+      returnDate: new Date(returnDate),
+      totalPrice: 0
+    }
   }
 
-  useEffect(() => {
-    sendRequest("/job/getid", "POST")
-      .then((res) => {
-        if (res.success) {
-          setJobId(res.message);
-        }
-      })
-  }, [jobId])
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // console.log(customerData);
+    const data = prepareJobData();
+
+    const newErrors = { shirt: {}, pant: {}, date: {}, customer: {} };
+    var isValidCustomer, isValidPant, isValidShirt
+
+    if (checkedData.pant) {
+      const pantErrors = validatePantData(pData);
+      isValidPant = Object.keys(pantErrors).length === 0
+      newErrors.pant = pantErrors
+      data.totalPrice += Number(pData.price) * data.pant_quantity;
+      data["pant_data"] = pData;
+    }
+
+    if (checkedData.shirt) {
+      const shirtErrors = validateShirtData(sData);
+      isValidShirt = Object.keys(shirtErrors).length === 0
+      newErrors.shirt = shirtErrors
+      data.totalPrice += Number(sData.price) * data.pant_quantity;
+      data["shirt_data"] = sData;
+    }
+
+    const dateErrors = validateDate(data.createdAt, data.returnDate);
+    const isValidDate = Object.keys(dateErrors).length === 0
+    newErrors.date = dateErrors
+
+    const customerError = ValidateCustomer(customerData)
+    isValidCustomer = Object.keys(customerError).length === 0
+    newErrors.customer = customerError
+
+    setErrors(newErrors)
+
+    console.log(isValidPant, isValidShirt, isValidDate, isValidCustomer, customerData)
+
+    if ((isValidPant || isValidShirt) && isValidDate && isValidCustomer) {
+      var route = '/customer/create';
+      var c_id = (view) ? { data: customerData.c_id } : await sendRequest(route, 'POST', customerData)
+      console.log(c_id)
+      route = update ? '/job/updateJob' : '/job/createJob';
+      console.log(route, data);
+      var res = await sendRequest(route, 'POST', { c_id: c_id.data, jobData: data })
+      console.log(res)
+      if (res.success) {
+        toast.success(res.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          theme: "colored",
+        });
+        handleReset();
+        electron.ipcRenderer.send('jobDetails', ({ job_id: data.job_id, c_id: customerData.c_id }));
+      } else {
+        toast.error(res.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          theme: "colored",
+        });
+      }
+    }
+  }
+
+
+  const handleReset = () => {
+    setCheckedData(initialChecked);
+    setQuantities({ shirt: jobData.shirt_quantity, pant: jobData.pant_quantity });
+    setSData(jobData.shirt_data);
+    setPData(jobData.pant_data);
+    setReturnDate(jobData.returnDate);
+    setErrors({ shirt: {}, pant: {}, date: {}, customer: {} });
+    setCustomerData(c_data);
+    setId(0);
+    setJobId(0);
+    setselectJobId(0);
+    setView(false);
+    setSelectedCustomer(null);
+    loadCustomerNames();
+  };
+
+  // console.log(quantities);
   return (
     <div>
       <ToastContainer />
       <div className='flex w-90 center mt4 font'>
         <Grid container direction="row" alignItems="flex-start" justify="space-between" spacing={3}>
           <Grid item xs={12} md={6}>
-            <CustomerDataDisplay data={customerData} view={view} setCustomerData={setCustomerData} Toast={toast} setId={setId} />
+            <CustomerDataDisplay
+              data={customerData}
+              view={view}
+              setCustomerData={setCustomerData}
+              setView={setView}
+              setId={setId}
+              errors={errors}
+            />
           </Grid>
           <Grid item xs={12} md={6}>
-            <GetCustomerDetails setId={setId} setSData={setSData} setPData={setPData} setUpdate={setUpdate} setCustomerData={setCustomerData} id={id} sQuantity={setSQuantity} pQuantity={setPQuantity} initial={resetData} setView={setView} />
+            <GetCustomerDetails
+              names={names}
+              setId={setId}
+              setUpdate={setUpdate}
+              setCustomerData={setCustomerData}
+              id={id}
+              setSData={setSData}
+              setPData={setPData}
+              setQuantities={setQuantities}
+              initial={jobData}
+              setView={setView}
+              selectedCustomer={selectedCustomer}
+              setSelectedCustomer={setSelectedCustomer}
+              jobId={selectjobId}
+              setJobId={setselectJobId}
+            />
             <FormGroup row>
               <pre className='pr2 black mr2'>{`Job Id: ${jobId}`}</pre>
               <FormControlLabel
@@ -220,7 +250,16 @@ function Measurement() {
           </Grid>
         </Grid>
       </div>
-      <CustomerMeasurement checkedData={checkedData} sData={sData} pData={pData} setSData={setSData} setPData={setPData} shirtQuantity={sQuantity} pantQuantity={pQuantity} setSQuantity={setSQuantity} setPQuantity={setPQuantity} sErrors={sErrors} pErrors={pErrors} />
+      <CustomerMeasurement
+        checkedData={checkedData}
+        sData={sData}
+        pData={pData}
+        setSData={setSData}
+        setPData={setPData}
+        quantities={quantities}
+        setQuantities={setQuantities}
+        errors={errors}
+      />
       {/* donot change UI for this div tag*/}
       <div className='flex flex-column-m w-90 justify-end center mv2 font b--dashed'>
         <pre className='pr2 f3 black mr2'>Total Price: <span className='b'>{totalPrice}</span>&#8377;</pre>
@@ -244,7 +283,8 @@ function Measurement() {
             className='w-60'
             value={returnDate}
             onChange={handleDateChange}
-            {...(dateError.date && { error: true, helperText: dateError.date })}
+            error={Boolean(errors.date.date)}
+            helperText={errors.date.date}
 
           />
           <div className='flex justify-start items-center ph3'>

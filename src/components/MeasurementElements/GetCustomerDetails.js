@@ -3,14 +3,13 @@ import { Autocomplete, MenuItem, createFilterOptions } from '@mui/material';
 import { CssTextField } from '../FormElements/TextfieldForm';
 import { sendRequest } from "../../utils/Helpers/HelpersMethod";
 
-function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerData, id, sQuantity, pQuantity, initial, setView }) {
+function GetCustomerDetails({ jobId, setJobId, names, setId, setSData, setPData, setUpdate, setCustomerData, id, setQuantities, initial, setView, selectedCustomer, setSelectedCustomer }) {
 
   const [jobSelect, setJobSelect] = useState(false);
   const [jobIds, setJobIds] = useState([]);
-  const [jobId, setJobId] = useState(0);
-  const [names, setNames] = useState([]);
 
   const handleChange = (e, value, option) => {
+    setSelectedCustomer(value);
     // console.log(value, option)
     setId(value.id.toString());
     jobIds.splice(0, jobIds.length);
@@ -37,19 +36,19 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
         .then((resp) => {
           if (resp.success) {
             const data = resp.data;
-            if (data.shirt_quantity === 0) {
-              sQuantity(data.shirt_quantity);
+            if (data.shirt_quantity === 0 || data.shirt_quantity === undefined) {
+              setQuantities(prev => ({ shirt: data.shirt_quantity, pant: prev.pant }));
               setSData(initial.shirt_data);
             } else {
-              sQuantity(data.shirt_quantity);
+              setQuantities(prev => ({ shirt: data.shirt_quantity, pant: prev.pant }));
               setSData(data.shirt_data);
             }
 
-            if (data.pant_quantity === 0) {
-              pQuantity(data.pant_quantity);
+            if (data.pant_quantity === 0 || data.pant_quantity === undefined) {
+              setQuantities(prev => ({ pant: data.pant_quantity, shirt: prev.shirt }));
               setPData(initial.pant_data);
             } else {
-              pQuantity(data.pant_quantity);
+              setQuantities(prev => ({ pant: data.pant_quantity, shirt: prev.shirt }));
               setPData(data.pant_data);
             }
           }
@@ -72,15 +71,6 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
       })
   }, [id, setCustomerData, setView])
 
-  useEffect(() => {
-    sendRequest("/customer/getnamelist", 'POST')
-      .then((res) => {
-        if (res.success) {
-          setNames(names => [...names, ...res.data]);
-        }
-      })
-  }, [])
-
   // console.log(names, id)
   return (
     <div className='pt1'>
@@ -93,6 +83,7 @@ function GetCustomerDetails({ setId, setSData, setPData, setUpdate, setCustomerD
               // disablePortal
               disableClearable
               options={names}
+              value={selectedCustomer}
               fullWidth
               onChange={handleChange}
               ListboxProps={{

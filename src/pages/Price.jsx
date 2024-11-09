@@ -79,7 +79,7 @@ function Price() {
             <pre className='black pr2'>Shirt Price </pre>
             <CssTextField
               variant='outlined'
-              name='pant_price'
+              name='shirt_price'
               className='w-50'
               type="number"
               onChange={handleChange}

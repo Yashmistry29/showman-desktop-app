@@ -14,7 +14,10 @@ const ShirtGrid = ({ data, setData, checkedData, quantity, setQuantity, errors }
 	}
 
 	const handleSChange = (e) => {
-		setQuantity(e.target.value)
+		setQuantity((prev) => ({
+			shirt: e.target.value,
+			pant: prev.pant
+		}));
 	}
 	const handleSelect = (e) => {
 		const { name, value } = e.target;

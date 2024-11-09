@@ -131,10 +131,3 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
 }
 
 export default PrintReceiptTemplate
-{/* <tr>
-  <td className="ph2" colSpan={6}>
-    <pre className='f4-xl b ma1'>{`Job No.:${jobData.job_id}\tનામ: ${customerData.name} (${customerData.c_id})`}</pre>
-    <pre className='f4-xl b ma1'>{`Job Date: ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}\tગામ: ${customerData.address}`}</pre>
-    <pre className='f4-xl b ma1'>{`Delivery: ${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}\tફોન નં: ${customerData.phone}, ${customerData.phone2}`}</pre>
-  </td>
-</tr> */}

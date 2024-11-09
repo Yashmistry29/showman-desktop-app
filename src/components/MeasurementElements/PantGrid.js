@@ -14,7 +14,10 @@ const PantGrid = ({ data, setData, checkedData, quantity, setQuantity, errors })
   }
 
   const handlePChange = (e) => {
-    setQuantity(e.target.value)
+    setQuantity((prev) => ({
+      pant: e.target.value,
+      shirt: prev.shirt,
+    }));
   }
 
   const handleSelect = (e) => {
