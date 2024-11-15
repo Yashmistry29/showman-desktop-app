@@ -38,7 +38,7 @@ function GetCustomerDetails({ price, jobId, setJobId, names, setId, setSData, se
             const data = resp.data;
             var shirt_diff = (price.shirt - data.shirt_data.price);
             var pant_diff = price.pant - data.pant_data.price;
-            console.log(data.shirt_data.price, data.pant_data.price, shirt_diff, pant_diff)
+            // console.log(data.shirt_data.price, data.pant_data.price, shirt_diff, pant_diff)
             data.shirt_data["price"] = shirt_diff < 0 ? data.shirt_data.price : data.shirt_data.price + shirt_diff
             data.pant_data["price"] = pant_diff < 0 ? data.pant_data.price : data.pant_data.price + pant_diff
             if (data.shirt_quantity === 0 || data.shirt_quantity === undefined) {
@@ -76,7 +76,7 @@ function GetCustomerDetails({ price, jobId, setJobId, names, setId, setSData, se
       })
   }, [id, setCustomerData, setView])
 
-  console.log(price)
+  // console.log(price)
   return (
     <div className='pt1'>
       <fieldset className='b--dashed b--black bw2'>
