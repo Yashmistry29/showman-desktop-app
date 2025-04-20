@@ -36,13 +36,12 @@ function GetCustomerDetails({ price, jobId, setJobId, names, setId, setSData, se
         .then((resp) => {
           if (resp.success) {
             const data = resp.data;
-            var shirt_diff = (price.shirt - data.shirt_data.price);
-            var pant_diff = price.pant - data.pant_data.price;
-            // console.log(data.shirt_data.price, data.pant_data.price, shirt_diff, pant_diff)
-            data.shirt_data["price"] = shirt_diff < 0 ? data.shirt_data.price : data.shirt_data.price + shirt_diff
-            data.pant_data["price"] = pant_diff < 0 ? data.pant_data.price : data.pant_data.price + pant_diff
+            console.log(data.shirt_data.price, data.pant_data.price, price);
+            data.shirt_data["price"] = price.shirt;
+            data.pant_data["price"] = price.pant;
+            console.log(data.shirt_data.price, data.pant_data.price, price);
             if (data.shirt_quantity === 0 || data.shirt_quantity === undefined) {
-              setQuantities(prev => ({ shirt: data.shirt_quantity, pant: prev.pant }));
+              setQuantities(prev => ({ shirt: 1, pant: prev.pant }));
               setSData(initial.shirt_data);
             } else {
               setQuantities(prev => ({ shirt: data.shirt_quantity, pant: prev.pant }));
@@ -50,7 +49,7 @@ function GetCustomerDetails({ price, jobId, setJobId, names, setId, setSData, se
             }
 
             if (data.pant_quantity === 0 || data.pant_quantity === undefined) {
-              setQuantities(prev => ({ pant: data.pant_quantity, shirt: prev.shirt }));
+              setQuantities(prev => ({ pant: 1, shirt: prev.shirt }));
               setPData(initial.pant_data);
             } else {
               setQuantities(prev => ({ pant: data.pant_quantity, shirt: prev.shirt }));
