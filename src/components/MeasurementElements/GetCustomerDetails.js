@@ -36,14 +36,12 @@ function GetCustomerDetails({ price, jobId, setJobId, names, setId, setSData, se
         .then((resp) => {
           if (resp.success) {
             const data = resp.data;
-            console.log(data.shirt_data.price, data.pant_data.price, price);
-            data.shirt_data["price"] = price.shirt;
-            data.pant_data["price"] = price.pant;
-            console.log(data.shirt_data.price, data.pant_data.price, price);
+            // console.log(data.shirt_data.price, data.pant_data.price, price);
             if (data.shirt_quantity === 0 || data.shirt_quantity === undefined) {
               setQuantities(prev => ({ shirt: 1, pant: prev.pant }));
               setSData(initial.shirt_data);
             } else {
+              data.shirt_data["price"] = price.shirt;
               setQuantities(prev => ({ shirt: data.shirt_quantity, pant: prev.pant }));
               setSData(data.shirt_data);
             }
@@ -53,6 +51,7 @@ function GetCustomerDetails({ price, jobId, setJobId, names, setId, setSData, se
               setPData(initial.pant_data);
             } else {
               setQuantities(prev => ({ pant: data.pant_quantity, shirt: prev.shirt }));
+              data.pant_data["price"] = price.pant;
               setPData(data.pant_data);
             }
           }
