@@ -21,6 +21,7 @@ function Measurement() {
   const [customerData, setCustomerData] = useState(c_data);
   const [checkedData, setCheckedData] = useState(initialChecked);
   const [quantities, setQuantities] = useState({ shirt: jobData.shirt_quantity, pant: jobData.pant_quantity });
+  const [priceData, setPriceData] = useState({});
   const [returnDate, setReturnDate] = useState(jobData.returnDate)
   const [sData, setSData] = useState(jobData.shirt_data);
   const [pData, setPData] = useState(jobData.pant_data);
@@ -36,6 +37,7 @@ function Measurement() {
         const price = res.data;
         sData["price"] = price.shirt_price;
         pData["price"] = price.pant_price;
+        setPriceData({ shirt: res.data.shirt_price, pant: res.data.pant_price })
       }).catch((err) => {
         console.log(err);
       })
@@ -197,6 +199,7 @@ function Measurement() {
             <GetCustomerDetails
               names={names}
               setId={setId}
+              price={priceData}
               setUpdate={setUpdate}
               setCustomerData={setCustomerData}
               id={id}

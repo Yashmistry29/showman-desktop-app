@@ -3,7 +3,7 @@ import { Autocomplete, MenuItem, createFilterOptions } from '@mui/material';
 import { CssTextField } from '../FormElements/TextfieldForm';
 import { sendRequest } from "../../utils/Helpers/HelpersMethod";
 
-function GetCustomerDetails({ jobId, setJobId, names, setId, setSData, setPData, setUpdate, setCustomerData, id, setQuantities, initial, setView, selectedCustomer, setSelectedCustomer }) {
+function GetCustomerDetails({ price, jobId, setJobId, names, setId, setSData, setPData, setUpdate, setCustomerData, id, setQuantities, initial, setView, selectedCustomer, setSelectedCustomer }) {
 
   const [jobSelect, setJobSelect] = useState(false);
   const [jobIds, setJobIds] = useState([]);
@@ -36,19 +36,22 @@ function GetCustomerDetails({ jobId, setJobId, names, setId, setSData, setPData,
         .then((resp) => {
           if (resp.success) {
             const data = resp.data;
+            // console.log(data.shirt_data.price, data.pant_data.price, price);
             if (data.shirt_quantity === 0 || data.shirt_quantity === undefined) {
-              setQuantities(prev => ({ shirt: data.shirt_quantity, pant: prev.pant }));
+              setQuantities(prev => ({ shirt: 1, pant: prev.pant }));
               setSData(initial.shirt_data);
             } else {
+              data.shirt_data["price"] = price.shirt;
               setQuantities(prev => ({ shirt: data.shirt_quantity, pant: prev.pant }));
               setSData(data.shirt_data);
             }
 
             if (data.pant_quantity === 0 || data.pant_quantity === undefined) {
-              setQuantities(prev => ({ pant: data.pant_quantity, shirt: prev.shirt }));
+              setQuantities(prev => ({ pant: 1, shirt: prev.shirt }));
               setPData(initial.pant_data);
             } else {
               setQuantities(prev => ({ pant: data.pant_quantity, shirt: prev.shirt }));
+              data.pant_data["price"] = price.pant;
               setPData(data.pant_data);
             }
           }
@@ -71,7 +74,7 @@ function GetCustomerDetails({ jobId, setJobId, names, setId, setSData, setPData,
       })
   }, [id, setCustomerData, setView])
 
-  // console.log(names, id)
+  // console.log(price)
   return (
     <div className='pt1'>
       <fieldset className='b--dashed b--black bw2'>
