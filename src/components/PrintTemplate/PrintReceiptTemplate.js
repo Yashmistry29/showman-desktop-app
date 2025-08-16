@@ -94,7 +94,7 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
               </div>
             </td>
             <td colSpan={2}>
-              <pre className='f4-xl ma1'><span className='b'>Job Date</span> {`\t  : ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}`}</pre>
+              <pre className='f4-xl ma1'><span className='b'>Job Date</span> {`\t: ${createdAt.getDate() + '/' + Number(createdAt.getUTCMonth() + 1) + '/' + createdAt.getFullYear()}`}</pre>
             </td>
             <td>
               <pre className='f5-xl b ma1'>Item Total</pre>
@@ -105,7 +105,7 @@ function PrintReceiptTemplate({ jobData, customerData, ShirtData, PantData, rece
           </tr>
           <tr>
             <td colSpan={2}>
-              <pre className='f4-xl ma1'><span className='b'>Delivery Date</span> {`: ${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}`}</pre>
+              <pre className='f4-xl ma1'><span className='b'>Delivery Date</span> {` : ${returnDate.getDate() + '/' + Number(returnDate.getUTCMonth() + 1) + '/' + returnDate.getFullYear()}`}</pre>
             </td>
             <td>
               <pre className='f5-xl b ma1'>Advance</pre>
